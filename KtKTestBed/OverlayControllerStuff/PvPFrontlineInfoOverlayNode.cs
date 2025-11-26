@@ -4,8 +4,6 @@ using KamiToolKit.Classes;
 using KamiToolKit.Classes.Controllers;
 using KamiToolKit.Classes.Timelines;
 using KamiToolKit.Nodes;
-using KtKTestBed.ResNodeStuff;
-
 namespace KtKTestBed.OverlayControllerStuff;
 //USE THIS
 public sealed class PvPFrontlineInfoOverlayNode : OverlayNode

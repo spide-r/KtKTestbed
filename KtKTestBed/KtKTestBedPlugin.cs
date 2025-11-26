@@ -5,9 +5,7 @@ using Dalamud.Interface.Windowing;
 using Dalamud.Plugin;
 using KamiToolKit;
 using KamiToolKit.Classes.Controllers;
-using KtKTestBed.NativeAddonStuff;
 using KtKTestBed.OverlayControllerStuff;
-using KtKTestBed.ResNodeStuff;
 
 namespace KtKTestBed;
 
