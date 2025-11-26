@@ -1,4 +1,5 @@
 ﻿using KamiToolKit;
+using KtKTestBed.ResNodeStuff;
 
 namespace KtKTestBed.NativeAddonStuff;
 
@@ -11,7 +12,7 @@ public class PvPFrontlineAddon : NativeAddon
         
         _frontlineInfo = new PvPFrontlineInfo();
 
-        RootNode = _frontlineInfo;
+        _frontlineInfo.AttachNode(this);
         
     }
 }

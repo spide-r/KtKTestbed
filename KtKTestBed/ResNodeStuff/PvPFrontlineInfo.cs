@@ -1,11 +1,10 @@
 ﻿using System.Numerics;
 using FFXIVClientStructs.FFXIV.Component.GUI;
-using KamiToolKit;
 using KamiToolKit.Classes;
 using KamiToolKit.Classes.Timelines;
 using KamiToolKit.Nodes;
 
-namespace KtKTestBed.NativeAddonStuff;
+namespace KtKTestBed.ResNodeStuff;
 
 public sealed class PvPFrontlineInfo : ResNode // this needs to stay a resnode
 {

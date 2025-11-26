@@ -5,6 +5,7 @@ using Dalamud.Interface.Windowing;
 using Dalamud.Plugin;
 using KamiToolKit;
 using KtKTestBed.NativeAddonStuff;
+using KtKTestBed.ResNodeStuff;
 
 namespace KtKTestBed;
 
@@ -37,12 +38,16 @@ public class KtKTestBedPlugin: IDalamudPlugin
     
     private AddonWhmGauge? whmGauge;
     
-    private PvPFrontlineInfo? _frontlineInfo;
+    private PvPFrontlineAddon? _frontlineAddon;
 
     private void TestFrontlineInfo()
     {
-        _frontlineInfo = new PvPFrontlineInfo();
-        _frontlineInfo.IsVisible = true;
+        _frontlineAddon = new PvPFrontlineAddon
+        {
+            InternalName = "PvPFrontlineInfo-KtKTestBed",
+            Title = "PvPFrontlineInfo"
+        };
+        
     }
 
     private void PutNativeAddonUpWhmTest()
