@@ -4,7 +4,7 @@ using KtKTestBed.ResNodeStuff;
 
 namespace KtKTestBed.NativeAddonStuff;
 
-public class PvPFrontlineAddon : NativeAddon
+public class PvPFrontlineAddon : NativeAddon //dont use nativeaddon for hud stuff
 {
     private PvPFrontlineInfo _frontlineInfo;
     protected override unsafe void OnSetup(AtkUnitBase* addon) {
@@ -12,5 +12,6 @@ public class PvPFrontlineAddon : NativeAddon
         _frontlineInfo = new PvPFrontlineInfo();
 
         _frontlineInfo.AttachNode(this);
+        WindowNode.IsVisible = false;
     } 
 }

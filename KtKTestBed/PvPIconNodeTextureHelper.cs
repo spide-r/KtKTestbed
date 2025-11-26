@@ -6,6 +6,7 @@ namespace KtKTestBed;
 
 public static class PvPIconNodeTextureHelper
 {
+    //NEVER use high rez coordinates
     public static unsafe void LoadPvPmksGuageTexture(ImageNode image) {
         image.AddPart(new Part {
             Id = 0, TexturePath = "ui/uld/PvPMKSGauge_hr1.tex", Size = new Vector2(424, 60), TextureCoordinates = new Vector2(0, 0)
