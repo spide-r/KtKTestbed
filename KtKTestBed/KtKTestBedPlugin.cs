@@ -4,6 +4,7 @@ using Dalamud.Game.Command;
 using Dalamud.Interface.Windowing;
 using Dalamud.Plugin;
 using KamiToolKit;
+using KtKTestBed.NativeAddonStuff;
 
 namespace KtKTestBed;
 
@@ -35,19 +36,30 @@ public class KtKTestBedPlugin: IDalamudPlugin
     }
     
     private AddonWhmGauge? whmGauge;
-    private void OnCommand(string command, string args)
-    {
-        Service.ChatGui.Print("AAAAAAAAAAA TEST START!!!!!!");
+    
+    private PvPFrontlineInfo? _frontlineInfo;
 
+    private void TestFrontlineInfo()
+    {
+        _frontlineInfo = new PvPFrontlineInfo();
+        _frontlineInfo.IsVisible = true;
+    }
+
+    private void PutNativeAddonUpWhmTest()
+    {
         whmGauge = new AddonWhmGauge {
-            
-            //NativeController = System.NativeController,
             InternalName = "WhiteMageGauge",
             Title = "White Mage Gauge",
             Size = new Vector2(200.0f, 100.0f),
         };
-        
         whmGauge.Open();
+
+    }
+    private void OnCommand(string command, string args)
+    {
+        Service.ChatGui.Print("AAAAAAAAAAA TEST START!!!!!!");
+        TestFrontlineInfo();
+  
         Service.ChatGui.Print("AAAAAAAAAAA TEST FAILED!!!!!!");
     }
 
