@@ -7,10 +7,10 @@ using KamiToolKit.Nodes;
 using KtKTestBed.ResNodeStuff;
 
 namespace KtKTestBed.OverlayControllerStuff;
-
+//USE THIS
 public sealed class PvPFrontlineInfoOverlayNode : OverlayNode
 {
-    public override OverlayLayer OverlayLayer { get; } = OverlayLayer.BehindUserInterface;
+    public override OverlayLayer OverlayLayer { get; } = OverlayLayer.BehindUserInterface; //todo: determine best overlay
 
     
     private ImageNode _unkImageNode14 = null!;
@@ -229,7 +229,7 @@ public sealed class PvPFrontlineInfoOverlayNode : OverlayNode
                 .EndFrameSet()
                 .Build()
         );
-        _unkImageNode7 = new SimpleImageNode()
+        _unkImageNode7 = new ImageNode()
         {
             NodeId = 7,
             IsVisible = false,
@@ -237,10 +237,7 @@ public sealed class PvPFrontlineInfoOverlayNode : OverlayNode
             Size = new Vector2(64,64),
             Origin = new Vector2(32,32),
             Color = new Vector4(255,255,255,63),
-            PartId = 17,
-            TextureCoordinates = new Vector2(0, 212),
-            TextureSize = new Vector2(40, 40),
-            TexturePath = "ui/uld/PvPMKSGauge_hr1.tex",
+            PartId = 17
         };
         _unkImageNode7.AddTimeline(new TimelineBuilder()
                 .BeginFrameSet(11, 70)
@@ -261,7 +258,7 @@ public sealed class PvPFrontlineInfoOverlayNode : OverlayNode
             AddColor = new Vector3(100,100,100),
             PartId = 0,
             TextureCoordinates = new Vector2(0, 0),
-            TextureSize = new Vector2(28, 28),
+            TextureSize = new Vector2(14, 14), //28,28 or 14,14
             TexturePath = "ui/uld/PvFrontlineInfo_hr1.tex",
         };
         _currentMidObjectiveNode6.AddTimeline(new TimelineBuilder()
@@ -292,7 +289,6 @@ public sealed class PvPFrontlineInfoOverlayNode : OverlayNode
             WrapMode = WrapMode.Stretch,
             ImageNodeFlags = ImageNodeFlags.AutoFit
         };
-        _unkImageNode14.PartId = 2;
         
         _unkImageNode13 = new ImageNode()
         {

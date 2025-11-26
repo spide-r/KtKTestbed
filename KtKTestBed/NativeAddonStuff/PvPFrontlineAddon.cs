@@ -4,6 +4,7 @@ using KtKTestBed.ResNodeStuff;
 
 namespace KtKTestBed.NativeAddonStuff;
 
+//DONT USE
 public class PvPFrontlineAddon : NativeAddon //dont use nativeaddon for hud stuff
 {
     private PvPFrontlineInfo _frontlineInfo;

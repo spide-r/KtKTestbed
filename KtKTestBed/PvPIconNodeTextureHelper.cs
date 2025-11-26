@@ -9,79 +9,104 @@ public static class PvPIconNodeTextureHelper
     //NEVER use high rez coordinates
     public static unsafe void LoadPvPmksGuageTexture(ImageNode image) {
         image.AddPart(new Part {
-            Id = 0, TexturePath = "ui/uld/PvPMKSGauge_hr1.tex", Size = new Vector2(424, 60), TextureCoordinates = new Vector2(0, 0)
+            Id = 0, TexturePath = "ui/uld/PvPMKSGauge_hr1.tex", Size = new Vector2(0, 0), 
+            TextureCoordinates = new Vector2(212, 30)
         });
         image.AddPart(new Part {
-            Id = 1, TexturePath = "ui/uld/PvPMKSGauge_hr1.tex", Size = new Vector2(416, 60), TextureCoordinates = new Vector2(424, 0),
+            Id = 1, TexturePath = "ui/uld/PvPMKSGauge_hr1.tex", Size = new Vector2(212, 0), 
+            TextureCoordinates = new Vector2(208, 30),
         });
         image.AddPart(new Part {
-            Id = 2, TexturePath = "ui/uld/PvPMKSGauge_hr1.tex", Size = new Vector2(512, 60), TextureCoordinates = new Vector2(0, 60),
+            Id = 2, TexturePath = "ui/uld/PvPMKSGauge_hr1.tex", Size = new Vector2(0, 30), 
+            TextureCoordinates = new Vector2(256, 30),
         });
         image.AddPart(new Part {
-            Id = 3, TexturePath = "ui/uld/PvPMKSGauge_hr1.tex", Size = new Vector2(512, 60), TextureCoordinates = new Vector2(512, 60),
+            Id = 3, TexturePath = "ui/uld/PvPMKSGauge_hr1.tex", Size = new Vector2(256, 30), 
+            TextureCoordinates = new Vector2(256, 30),
         });
         image.AddPart(new Part {
-            Id = 4, TexturePath = "ui/uld/PvPMKSGauge_hr1.tex", Size = new Vector2(512, 60), TextureCoordinates = new Vector2(0, 120),
+            Id = 4, TexturePath = "ui/uld/PvPMKSGauge_hr1.tex", Size = new Vector2(0, 60), 
+            TextureCoordinates = new Vector2(256, 30),
         });
         image.AddPart(new Part {
-            Id = 5, TexturePath = "ui/uld/PvPMKSGauge_hr1.tex", Size = new Vector2(512, 60), TextureCoordinates = new Vector2(512, 120),
+            Id = 5, TexturePath = "ui/uld/PvPMKSGauge_hr1.tex", Size = new Vector2(256, 60), 
+            TextureCoordinates = new Vector2(256, 30),
         });
         image.AddPart(new Part {
-            Id = 6, TexturePath = "ui/uld/PvPMKSGauge_hr1.tex", Size = new Vector2(1024, 60), TextureCoordinates = new Vector2(0, 180),
+            Id = 6, TexturePath = "ui/uld/PvPMKSGauge_hr1.tex", Size = new Vector2(0, 90), 
+            TextureCoordinates = new Vector2(512, 30),
         });
         image.AddPart(new Part {
-            Id = 7, TexturePath = "ui/uld/PvPMKSGauge_hr1.tex", Size = new Vector2(1024, 60), TextureCoordinates = new Vector2(0, 240),
+            Id = 7, TexturePath = "ui/uld/PvPMKSGauge_hr1.tex", Size = new Vector2(0, 120), 
+            TextureCoordinates = new Vector2(512, 30),
         });
         image.AddPart(new Part {
-            Id = 8, TexturePath = "ui/uld/PvPMKSGauge_hr1.tex", Size = new Vector2(52, 60), TextureCoordinates = new Vector2(840, 0),
+            Id = 8, TexturePath = "ui/uld/PvPMKSGauge_hr1.tex", Size = new Vector2(420, 0), 
+            TextureCoordinates = new Vector2(26, 30),
         });
         image.AddPart(new Part {
-            Id = 9, TexturePath = "ui/uld/PvPMKSGauge_hr1.tex", Size = new Vector2(52, 60), TextureCoordinates = new Vector2(892, 0),
+            Id = 9, TexturePath = "ui/uld/PvPMKSGauge_hr1.tex", Size = new Vector2(446, 0), 
+            TextureCoordinates = new Vector2(26, 30),
         });
         image.AddPart(new Part {
-            Id = 10, TexturePath = "ui/uld/PvPMKSGauge_hr1.tex", Size = new Vector2(48, 60), TextureCoordinates = new Vector2(946, 0),
+            Id = 10, TexturePath = "ui/uld/PvPMKSGauge_hr1.tex", Size = new Vector2(473, 0), 
+            TextureCoordinates = new Vector2(24, 30),
         });
         image.AddPart(new Part {
-            Id = 11, TexturePath = "ui/uld/PvPMKSGauge_hr1.tex", Size = new Vector2(24, 60), TextureCoordinates = new Vector2(996, 0),
+            Id = 11, TexturePath = "ui/uld/PvPMKSGauge_hr1.tex", Size = new Vector2(499, 0), 
+            TextureCoordinates = new Vector2(12, 30),
         });
         image.AddPart(new Part {
-            Id = 12, TexturePath = "ui/uld/PvPMKSGauge_hr1.tex", Size = new Vector2(492, 4), TextureCoordinates = new Vector2(516, 306),
+            Id = 12, TexturePath = "ui/uld/PvPMKSGauge_hr1.tex", Size = new Vector2(258, 153), 
+            TextureCoordinates = new Vector2(246, 2),
         });
         image.AddPart(new Part {
-            Id = 13, TexturePath = "ui/uld/PvPMKSGauge_hr1.tex", Size = new Vector2(60, 60), TextureCoordinates = new Vector2(0, 300),
+            Id = 13, TexturePath = "ui/uld/PvPMKSGauge_hr1.tex", Size = new Vector2(0, 150), 
+            TextureCoordinates = new Vector2(30, 30),
         });
         image.AddPart(new Part {
-            Id = 14, TexturePath = "ui/uld/PvPMKSGauge_hr1.tex", Size = new Vector2(60, 60), TextureCoordinates = new Vector2(60, 300),
+            Id = 14, TexturePath = "ui/uld/PvPMKSGauge_hr1.tex", Size = new Vector2(30, 150), 
+            TextureCoordinates = new Vector2(30, 30),
         });
         image.AddPart(new Part {
-            Id = 15, TexturePath = "ui/uld/PvPMKSGauge_hr1.tex", Size = new Vector2(60, 60), TextureCoordinates = new Vector2(120, 300),
+            Id = 15, TexturePath = "ui/uld/PvPMKSGauge_hr1.tex", Size = new Vector2(60, 150), 
+            TextureCoordinates = new Vector2(30, 30),
         });
         image.AddPart(new Part {
-            Id = 16, TexturePath = "ui/uld/PvPMKSGauge_hr1.tex", Size = new Vector2(60, 60), TextureCoordinates = new Vector2(180, 300),
+            Id = 16, TexturePath = "ui/uld/PvPMKSGauge_hr1.tex", Size = new Vector2(90, 150), 
+            TextureCoordinates = new Vector2(30, 30),
         });
         image.AddPart(new Part {
-            Id = 17, TexturePath = "ui/uld/PvPMKSGauge_hr1.tex", Size = new Vector2(80, 80), TextureCoordinates = new Vector2(0, 424),
+            Id = 17, TexturePath = "ui/uld/PvPMKSGauge_hr1.tex", Size = new Vector2(0, 212), 
+            TextureCoordinates = new Vector2(40, 40),
         });
         image.AddPart(new Part {
-            Id = 18, TexturePath = "ui/uld/PvPMKSGauge_hr1.tex", Size = new Vector2(508, 8), TextureCoordinates = new Vector2(516, 328),
+            Id = 18, TexturePath = "ui/uld/PvPMKSGauge_hr1.tex", Size = new Vector2(258, 164), 
+            TextureCoordinates = new Vector2(254, 4),
         });
         image.AddPart(new Part {
-            Id = 19, TexturePath = "ui/uld/PvPMKSGauge_hr1.tex", Size = new Vector2(52, 60), TextureCoordinates = new Vector2(244, 300),
+            Id = 19, TexturePath = "ui/uld/PvPMKSGauge_hr1.tex", Size = new Vector2(122, 150),
+            TextureCoordinates = new Vector2(26, 30),
         });
         image.AddPart(new Part {
-            Id = 20, TexturePath = "ui/uld/PvPMKSGauge_hr1.tex", Size = new Vector2(64, 64), TextureCoordinates = new Vector2(128, 360),
+            Id = 20, TexturePath = "ui/uld/PvPMKSGauge_hr1.tex", Size = new Vector2(64, 180), 
+            TextureCoordinates = new Vector2(32, 32),
         });
         image.AddPart(new Part {
-            Id = 21, TexturePath = "ui/uld/PvPMKSGauge_hr1.tex", Size = new Vector2(152, 152), TextureCoordinates = new Vector2(192, 360),
+            Id = 21, TexturePath = "ui/uld/PvPMKSGauge_hr1.tex", Size = new Vector2(96, 180), 
+            TextureCoordinates = new Vector2(76, 76),
         });
         image.AddPart(new Part {
-            Id = 22, TexturePath = "ui/uld/PvPMKSGauge_hr1.tex", Size = new Vector2(428, 58), TextureCoordinates = new Vector2(596, 344),
+            Id = 22, TexturePath = "ui/uld/PvPMKSGauge_hr1.tex", Size = new Vector2(298, 172), 
+            TextureCoordinates = new Vector2(214, 29),
         });
         image.AddPart(new Part {
-            Id = 23, TexturePath = "ui/uld/PvPMKSGauge_hr1.tex", Size = new Vector2(40, 58), TextureCoordinates = new Vector2(556, 344),
+            Id = 23, TexturePath = "ui/uld/PvPMKSGauge_hr1.tex", Size = new Vector2(278, 172), 
+            TextureCoordinates = new Vector2(20, 29),
         });
         image.AddPart(new Part {
-            Id = 24, TexturePath = "ui/uld/PvPMKSGauge_hr1.tex", Size = new Vector2(44, 44), TextureCoordinates = new Vector2(490, 362),
+            Id = 24, TexturePath = "ui/uld/PvPMKSGauge_hr1.tex", Size = new Vector2(245, 181), 
+            TextureCoordinates = new Vector2(22, 22),
         });
     }
     

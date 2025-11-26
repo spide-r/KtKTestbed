@@ -6,6 +6,8 @@ using KamiToolKit.Nodes;
 
 namespace KtKTestBed.ResNodeStuff;
 
+
+// DONT USE
 public sealed class PvPFrontlineInfo : ResNode // this needs to stay a resnode
 {
     

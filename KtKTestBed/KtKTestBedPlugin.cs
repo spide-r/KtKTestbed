@@ -11,6 +11,7 @@ using KtKTestBed.ResNodeStuff;
 
 namespace KtKTestBed;
 
+// /xldata ai2
 public class KtKTestBedPlugin: IDalamudPlugin
 {
 
@@ -48,32 +49,7 @@ public class KtKTestBedPlugin: IDalamudPlugin
 
     }
     
-    private AddonWhmGauge? whmGauge;
     
-    private PvPFrontlineAddon? _frontlineAddon;
-
-    private void TestFrontlineInfoAddon()
-    {
-        _frontlineAddon = new PvPFrontlineAddon
-        {
-            InternalName = "PvPFrontlineInfo-KtKTestBed",
-            Title = "PvPFrontlineInfo - I don't want this page"
-        };
-        _frontlineAddon.Open();
-        
-        
-    }
-
-    private void PutNativeAddonUpWhmTest()
-    {
-        whmGauge = new AddonWhmGauge {
-            InternalName = "WhiteMageGauge",
-            Title = "White Mage Gauge",
-            Size = new Vector2(200.0f, 100.0f),
-        };
-        whmGauge.Open();
-
-    }
     private void OverlayControllerTest()
     {
         badDesignRemoveMe = !badDesignRemoveMe;
