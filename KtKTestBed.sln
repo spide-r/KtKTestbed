@@ -1,0 +1,22 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KtKTestBed", "KtKTestBed\KtKTestBed.csproj", "{698E650B-BAB3-4636-934D-91677CADDFAA}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KamiToolKit", "KamiToolKit\KamiToolKit.csproj", "{D8036512-6BF8-4938-BD83-4F6DB0FEED79}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{698E650B-BAB3-4636-934D-91677CADDFAA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{698E650B-BAB3-4636-934D-91677CADDFAA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{698E650B-BAB3-4636-934D-91677CADDFAA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{698E650B-BAB3-4636-934D-91677CADDFAA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D8036512-6BF8-4938-BD83-4F6DB0FEED79}.Debug|Any CPU.ActiveCfg = Debug|x64
+		{D8036512-6BF8-4938-BD83-4F6DB0FEED79}.Debug|Any CPU.Build.0 = Debug|x64
+		{D8036512-6BF8-4938-BD83-4F6DB0FEED79}.Release|Any CPU.ActiveCfg = Release|x64
+		{D8036512-6BF8-4938-BD83-4F6DB0FEED79}.Release|Any CPU.Build.0 = Release|x64
+	EndGlobalSection
+EndGlobal

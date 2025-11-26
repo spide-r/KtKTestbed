@@ -1,0 +1,17 @@
+﻿{
+  "name": "KtKTestBed",
+  "author": "spide-r",
+  "punchline": "REPLACE MEEEEE Because looking at the map is too hard or not idk im not ur mum",
+  "description": "REPLACE MEEEEEE This plugin adds an objective display to your HUD while in Frontline games among other things!!!!!!", 
+  "repo_url": "https://github.com/spide-r/FrontlineWidget",
+  "IconURL": "https://github.com/spide-r/FrontlineWidget/blob/main/images/icon.png",
+  "tags": [
+    "frontlines",
+    "pvp"
+  ],
+  "CategoryTags": [
+    "utility",
+    "other"
+  ],
+  "AcceptsFeedback": false
+}
