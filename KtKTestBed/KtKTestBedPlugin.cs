@@ -47,6 +47,7 @@ public class KtKTestBedPlugin: IDalamudPlugin
             InternalName = "PvPFrontlineInfo-KtKTestBed",
             Title = "PvPFrontlineInfo"
         };
+        _frontlineAddon.Open();
         
     }
 
