@@ -14,7 +14,6 @@ public class KtKTestBedPlugin: IDalamudPlugin
 {
 
     public WindowSystem WindowSystem = new("KtKTestBedPlugin");
-    public static bool badDesignRemoveMe = false;
     
 
     public IDalamudPluginInterface PluginInterface { get; set; }
@@ -48,16 +47,8 @@ public class KtKTestBedPlugin: IDalamudPlugin
     }
     
     
-    private void OverlayControllerTest()
-    {
-        badDesignRemoveMe = !badDesignRemoveMe;
-    }
     private void OnCommand(string command, string args)
     {
-        Service.ChatGui.Print("AAAAAAAAAAA TEST START!!!!!!");
-        OverlayControllerTest();
-  
-        Service.ChatGui.Print("AAAAAAAAAAA TEST FAILED!!!!!!");
     }
 
     
