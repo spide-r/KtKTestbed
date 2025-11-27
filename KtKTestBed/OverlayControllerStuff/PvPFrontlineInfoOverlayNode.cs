@@ -5,12 +5,11 @@ using KamiToolKit.Classes.Controllers;
 using KamiToolKit.Classes.Timelines;
 using KamiToolKit.Nodes;
 namespace KtKTestBed.OverlayControllerStuff;
-//TODO: ADDCOLOR SEEMS TO NOT BE CORRECT - MAKE SUREI TS NOT USING BIG WHOLE NUMBERS
-//TODO: IMAGE FLAGS NEED TO BE SET
+
 public sealed class PvPFrontlineInfoOverlayNode : OverlayNode
 {
-    public override OverlayLayer OverlayLayer { get; } = OverlayLayer.Background; 
-    
+    public override OverlayLayer OverlayLayer { get; } = OverlayLayer.Background;
+    private static string _pvPFrontLineInfoHr1 = "ui/uld/PvPFrontlineInfo_hr1.tex";
     private ImageNode _unkImageNode14 = null!;
     private ImageNode _unkImageNode13 = null!;
     private ImageNode _unkImageNode12 = null!;
@@ -30,6 +29,7 @@ public sealed class PvPFrontlineInfoOverlayNode : OverlayNode
     //https://github.com/MidoriKami/VanillaPlus/blob/master/VanillaPlus/Features/BetterCursor/CursorImageNode.cs
     public override void Update()
     {
+        IsVisible = true;
         //todo: this is where we play the animations, modify position & size, toggle visibility
         EnableMoving = true;
     }
@@ -39,7 +39,10 @@ public sealed class PvPFrontlineInfoOverlayNode : OverlayNode
         Size = new Vector2(212, 56); //106,28
         Position = new Vector2(423, 459);
         NodeId = 1;
-        AddFlags(NodeFlags.Enabled, NodeFlags.EmitsEvents, NodeFlags.AnchorTop, NodeFlags.AnchorLeft, NodeFlags.Fill, NodeFlags.Focusable);
+        NodeFlags = NodeFlags.Enabled |  NodeFlags.EmitsEvents | NodeFlags.AnchorTop | 
+                    NodeFlags.AnchorLeft |  NodeFlags.Fill | NodeFlags.Focusable;
+        
+        //todo fix root node construction
         
         ConstructObjects();
         LoadTimeline();
@@ -90,8 +93,8 @@ public sealed class PvPFrontlineInfoOverlayNode : OverlayNode
             PartId = 18,
             NodeFlags = NodeFlags.AnchorTop | NodeFlags.AnchorLeft | NodeFlags.Enabled | NodeFlags.EmitsEvents,
             WrapMode = WrapMode.Stretch,
-            ImageNodeFlags = ImageNodeFlags.FlipV,
-            IsVisible = false
+            ImageNodeFlags = ImageNodeFlags.FlipV, //todo: needs to be 0x20 not 0x2
+            //drawflags were 0xC
         };
         
         _unkImageNode13 = new ImageNode()
@@ -101,34 +104,35 @@ public sealed class PvPFrontlineInfoOverlayNode : OverlayNode
             Size = new Vector2(160, 52),
             Scale = new Vector2(0.25f, 1),
             Color = new Vector4(1,1,1,0),
-            AddColor = new Vector3(0.2509f,0,-0.2509f),
+            AddColor = new Vector3(0.251f,0,-0.251f),
             PartId = 18,
             ImageNodeFlags = ImageNodeFlags.FlipV,
             NodeFlags = NodeFlags.AnchorTop | NodeFlags.AnchorLeft  | NodeFlags.Enabled | NodeFlags.EmitsEvents,
             //IsVisible = false
+            // 0xC drawflags
         };
         
 
         _unkImageNode12 = new ImageNode()
         {
             NodeId = 12,
-            IsVisible = true,
             Position = new Vector2(106, 2),
             Size = new Vector2(160, 30),
             Scale = new Vector2(-1, 1.75f),
             PartId = 18,
-            NodeFlags = NodeFlags.AnchorTop | NodeFlags.AnchorLeft | NodeFlags.Enabled| NodeFlags.EmitsEvents,
-
+            NodeFlags = NodeFlags.AnchorTop | NodeFlags.Visible | NodeFlags.AnchorLeft | NodeFlags.Enabled| NodeFlags.EmitsEvents,
+            WrapMode = WrapMode.Stretch
+            //Drawflags are 0xC
         };
         _unkImageNode11 = new ImageNode()
         {
             NodeId = 11,
-            IsVisible = true,
             Position = new Vector2(106, 2),
             Size = new Vector2(160, 30),
             Scale = new Vector2(1, 1.75f),
             PartId = 18,
-            NodeFlags = NodeFlags.AnchorTop | NodeFlags.AnchorLeft | NodeFlags.Enabled| NodeFlags.EmitsEvents,
+            NodeFlags = NodeFlags.AnchorTop  | NodeFlags.Visible | NodeFlags.AnchorLeft | NodeFlags.Enabled| NodeFlags.EmitsEvents,
+            WrapMode = WrapMode.Stretch
 
         };
 
@@ -142,26 +146,27 @@ public sealed class PvPFrontlineInfoOverlayNode : OverlayNode
             Color = new Vector4(1,1,1,65),
             AddColor = new Vector3(-0.502f, -0.502f, -0.502f),
             PartId = 0,
+            NodeFlags = NodeFlags.AnchorTop | NodeFlags.AnchorLeft | NodeFlags.Enabled | NodeFlags.EmitsEvents | NodeFlags.Visible,
+            WrapMode = WrapMode.Stretch,
             TextureCoordinates = new Vector2(0, 0),
             TextureSize = new Vector2(212, 56),
-            TexturePath = "ui/uld/PvFrontlineInfo_hr1.tex",
-            NodeFlags = NodeFlags.AnchorTop | NodeFlags.AnchorLeft | NodeFlags.Enabled | NodeFlags.EmitsEvents | NodeFlags.Visible
+            TexturePath = _pvPFrontLineInfoHr1,
         };
 
         
         _unkImageNode9 = new SimpleImageNode()
         {
             NodeId = 9,
-            IsVisible = true,
             Position = new Vector2(0, 0),
             Size = new Vector2(212, 56),
             Scale = new Vector2(1, 1),
-            Color = new Vector4(255,255,255,191),
-            AddColor = new Vector3(-128,-128,-128), //todo, is this correct?
+            Color = new Vector4(1,1,1,65),
+            AddColor = new Vector3(-0.502f, -0.502f, -0.502f),
             PartId = 0,
             TextureCoordinates = new Vector2(0, 0),
             TextureSize = new Vector2(212, 56),
-            TexturePath = "ui/uld/PvFrontlineInfo_hr1.tex",
+            TexturePath = _pvPFrontLineInfoHr1,
+            NodeFlags = NodeFlags.AnchorTop | NodeFlags.AnchorLeft | NodeFlags.Enabled | NodeFlags.EmitsEvents | NodeFlags.Visible,
         };
         
 
@@ -171,16 +176,15 @@ public sealed class PvPFrontlineInfoOverlayNode : OverlayNode
         _timeUntilNextObjectiveNode4 = new TextNode
         {
             NodeId = 4,
-            IsVisible = true,
             Position = new Vector2(76,35),
             Size = new Vector2(60,14),
             AlignmentType = AlignmentType.Center,
             FontType = FontType.MiedingerMed,
             FontSize = 14,
-            TextColor = new Vector4(255,255,255,255),
-            TextOutlineColor = new Vector4(0,153,255,255),
+            TextColor = new Vector4(1,1,1,1),
+            TextOutlineColor = new Vector4(0,0.6f,1,1),
             TextFlags = TextFlags.Edge | TextFlags.Glare,
-            String = "Unk TextNode 4!!!",
+            String = "00:00", 
             NodeFlags = NodeFlags.AnchorTop | NodeFlags.AnchorLeft | NodeFlags.Visible | NodeFlags.Enabled | NodeFlags.EmitsEvents
         }; 
 
@@ -192,23 +196,23 @@ public sealed class PvPFrontlineInfoOverlayNode : OverlayNode
             Size = new Vector2(22, 22),
             AddColor = new Vector3(-64, 0, 128),
             PartId = 24,
-            NodeFlags = NodeFlags.AnchorTop | NodeFlags.AnchorLeft | NodeFlags.Enabled | NodeFlags.EmitsEvents,
+            NodeFlags = NodeFlags.AnchorTop | NodeFlags.AnchorLeft| NodeFlags.Visible | NodeFlags.Enabled | NodeFlags.EmitsEvents,
             
         };
 
         _objectiveStateTextNode2 = new TextNode
         {
             NodeId = 2,
-            IsVisible = true,
             Position = new Vector2(16, -1),
             Size = new Vector2(180, 32),
             AlignmentType = AlignmentType.Center,
             FontType = FontType.Axis,
             FontSize = 12,
-            TextColor = new Vector4(255, 255, 255, 255),
-            TextOutlineColor = new Vector4(0, 153, 255, 255),
+            TextColor = new Vector4(1,1,1,1),
+            TextOutlineColor = new Vector4(0,0.6f,1,1),
+            NodeFlags = NodeFlags.AnchorTop | NodeFlags.AnchorLeft | NodeFlags.Visible | NodeFlags.Enabled | NodeFlags.EmitsEvents,
             TextFlags = TextFlags.Edge | TextFlags.Glare | TextFlags.WordWrap | TextFlags.MultiLine,
-            String = "Unk TextNode 2"
+            String = "Thank you Kami"
 
         };
     }
@@ -219,46 +223,52 @@ public sealed class PvPFrontlineInfoOverlayNode : OverlayNode
             NodeId = 5,
             IsVisible = true,
             Position = new Vector2(18,18),
-            Size = new Vector2(28,28)
+            Size = new Vector2(28,28),
+            NodeFlags = NodeFlags.AnchorTop | NodeFlags.AnchorLeft | NodeFlags.Enabled | NodeFlags.EmitsEvents | NodeFlags.Visible,
+
         };
 
         _unkImageNode8 = new ImageNode()
         {
             NodeId = 8,
-            IsVisible = false,
             Position = new Vector2(-16,-16),
             Size = new Vector2(60,60),
             Origin = new Vector2(30,30),
-            Color = new Vector4(255,255,255,153),
+            Color = new Vector4(1,1,1,103),
             PartId = 20,
+            NodeFlags = NodeFlags.AnchorTop | NodeFlags.AnchorLeft | NodeFlags.Visible | NodeFlags.EmitsEvents | NodeFlags.Enabled,
+            WrapMode = WrapMode.Stretch
         };
 
         _unkImageNode7 = new ImageNode()
         {
             NodeId = 7,
-            IsVisible = false,
             Position = new Vector2(-18,-18),
             Size = new Vector2(64,64),
             Origin = new Vector2(32,32),
-            Color = new Vector4(255,255,255,63),
-            ImageNodeFlags = ImageNodeFlags.FlipV,
-            PartId = 17
+            Color = new Vector4(1,1,1,193),
+            PartId = 17,
+            NodeFlags = NodeFlags.AnchorTop | NodeFlags.AnchorLeft | NodeFlags.Enabled | NodeFlags.EmitsEvents,
+            WrapMode = WrapMode.Stretch,
+            RotationDegrees = 183.1f,
         };
 
         _currentMidObjectiveNode6 = new SimpleImageNode
         {
             NodeId = 6,
-            IsVisible = false,
             Position = new Vector2(0,0),
             Size = new Vector2(28,28),
             Origin = new Vector2(14,14),
-            Color = new Vector4(255,255,255,255),
-            AddColor = new Vector3(100,100,100),
+            Color = new Vector4(1,1,1,1),
+            AddColor = new Vector3(0.395f,0.395f,0.395f),
             ImageNodeFlags = ImageNodeFlags.AutoFit,
-            PartId = 0,
+            /*PartId = 0,
             TextureCoordinates = new Vector2(0, 0),
             TextureSize = new Vector2(14, 14), //28,28 or 14,14
-            TexturePath = "ui/uld/PvFrontlineInfo_hr1.tex"
+            TexturePath = ,*/
+            WrapMode = WrapMode.Stretch,
+            NodeFlags = NodeFlags.AnchorTop | NodeFlags.AnchorLeft | NodeFlags.Enabled | NodeFlags.Visible | NodeFlags.EmitsEvents,
+
         };
     }
     private void LoadPvPMksForAllNodes()
