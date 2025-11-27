@@ -8,6 +8,7 @@ namespace KtKTestBed.OverlayControllerStuff;
 
 public sealed class PvPFrontlineInfoOverlayNode : OverlayNode
 {
+    //todo somehow during animation 101 edgecolor for the time and the objective state thingy turns green ??
     public override OverlayLayer OverlayLayer { get; } = OverlayLayer.Background;
     private static string _pvPFrontLineInfoHr1 = "ui/uld/PvPFrontlineInfo_hr1.tex";
     private ImageNode _unkImageNode14 = null!;
@@ -27,11 +28,37 @@ public sealed class PvPFrontlineInfoOverlayNode : OverlayNode
     private TextNode _objectiveStateTextNode2 = null!; //"Weapon Displacement System Charging", "Weaponry Deployed!" among other things
 
     //https://github.com/MidoriKami/VanillaPlus/blob/master/VanillaPlus/Features/BetterCursor/CursorImageNode.cs
+
+    private int current = 0;
+    private int current2 = 0;
     public override void Update()
     {
-        IsVisible = true;
+        var a = Service.PvPFrontlineInfoAdapter;
+        IsVisible = a.Visible;
         //todo: this is where we play the animations, modify position & size, toggle visibility
-        EnableMoving = true;
+        EnableMoving = a.Movable;
+        if (current != a.Animation)
+        {
+            Timeline?.StopAnimation();
+            Timeline?.PlayAnimation(a.Animation);
+            current = a.Animation;
+        }
+        
+        if (current2 != a.AnimationForResNode5)
+        {
+            if (a.AnimationForResNode5 == -1)
+            {
+                _unkResNode5.Timeline?.StopAnimation();
+                current2 = a.AnimationForResNode5;
+            }
+            else
+            {
+                _unkResNode5.Timeline?.StopAnimation();
+                _unkResNode5.Timeline?.PlayAnimation(a.AnimationForResNode5);
+                current2 = a.AnimationForResNode5;
+            }
+        }
+
     }
 
     public PvPFrontlineInfoOverlayNode()
@@ -39,10 +66,9 @@ public sealed class PvPFrontlineInfoOverlayNode : OverlayNode
         Size = new Vector2(212, 56); //106,28
         Position = new Vector2(423, 459);
         NodeId = 1;
-        NodeFlags = NodeFlags.Enabled |  NodeFlags.EmitsEvents | NodeFlags.AnchorTop | 
-                    NodeFlags.AnchorLeft |  NodeFlags.Fill | NodeFlags.Focusable;
-        
-        //todo fix root node construction
+        NodeFlags = NodeFlags.AnchorTop | NodeFlags.AnchorLeft | NodeFlags.Enabled | NodeFlags.Fill |
+                    NodeFlags.Focusable |
+                    NodeFlags.EmitsEvents;
         
         ConstructObjects();
         LoadTimeline();
@@ -93,8 +119,7 @@ public sealed class PvPFrontlineInfoOverlayNode : OverlayNode
             PartId = 18,
             NodeFlags = NodeFlags.AnchorTop | NodeFlags.AnchorLeft | NodeFlags.Enabled | NodeFlags.EmitsEvents,
             WrapMode = WrapMode.Stretch,
-            ImageNodeFlags = ImageNodeFlags.FlipV, //todo: needs to be 0x20 not 0x2
-            //drawflags were 0xC
+            //ImageNodeFlags = ImageNodeFlags.FlipV, //todo: needs to be 0x20 not 0x2
         };
         
         _unkImageNode13 = new ImageNode()
@@ -106,10 +131,8 @@ public sealed class PvPFrontlineInfoOverlayNode : OverlayNode
             Color = new Vector4(1,1,1,0),
             AddColor = new Vector3(0.251f,0,-0.251f),
             PartId = 18,
-            ImageNodeFlags = ImageNodeFlags.FlipV,
+            WrapMode = WrapMode.Stretch,
             NodeFlags = NodeFlags.AnchorTop | NodeFlags.AnchorLeft  | NodeFlags.Enabled | NodeFlags.EmitsEvents,
-            //IsVisible = false
-            // 0xC drawflags
         };
         
 
@@ -122,7 +145,6 @@ public sealed class PvPFrontlineInfoOverlayNode : OverlayNode
             PartId = 18,
             NodeFlags = NodeFlags.AnchorTop | NodeFlags.Visible | NodeFlags.AnchorLeft | NodeFlags.Enabled| NodeFlags.EmitsEvents,
             WrapMode = WrapMode.Stretch
-            //Drawflags are 0xC
         };
         _unkImageNode11 = new ImageNode()
         {
@@ -194,7 +216,7 @@ public sealed class PvPFrontlineInfoOverlayNode : OverlayNode
             IsVisible = true,
             Position = new Vector2(48, 31),
             Size = new Vector2(22, 22),
-            AddColor = new Vector3(-64, 0, 128),
+            AddColor = new Vector3(-0.251f, 0, 0.502f),
             PartId = 24,
             NodeFlags = NodeFlags.AnchorTop | NodeFlags.AnchorLeft| NodeFlags.Visible | NodeFlags.Enabled | NodeFlags.EmitsEvents,
             
@@ -212,7 +234,7 @@ public sealed class PvPFrontlineInfoOverlayNode : OverlayNode
             TextOutlineColor = new Vector4(0,0.6f,1,1),
             NodeFlags = NodeFlags.AnchorTop | NodeFlags.AnchorLeft | NodeFlags.Visible | NodeFlags.Enabled | NodeFlags.EmitsEvents,
             TextFlags = TextFlags.Edge | TextFlags.Glare | TextFlags.WordWrap | TextFlags.MultiLine,
-            String = "Thank you Kami"
+            String = "Objective State"
 
         };
     }
@@ -261,7 +283,7 @@ public sealed class PvPFrontlineInfoOverlayNode : OverlayNode
             Origin = new Vector2(14,14),
             Color = new Vector4(1,1,1,1),
             AddColor = new Vector3(0.395f,0.395f,0.395f),
-            ImageNodeFlags = ImageNodeFlags.AutoFit,
+           // ImageNodeFlags = ImageNodeFlags.AutoFit,
             /*PartId = 0,
             TextureCoordinates = new Vector2(0, 0),
             TextureSize = new Vector2(14, 14), //28,28 or 14,14
@@ -504,21 +526,21 @@ public sealed class PvPFrontlineInfoOverlayNode : OverlayNode
     {
               _timeUntilNextObjectiveNode4.AddTimeline(new TimelineBuilder()
           .BeginFrameSet(1, 10)
-          .AddFrame(1, textOutlineColor: new Vector3(0, 153, 255))
+          .AddFrame(1, textOutlineColor: new Vector3(0.0f, 0.6000f, 1.0f))
           .EndFrameSet()
           .BeginFrameSet(11, 26)
-          .AddFrame(11, textOutlineColor: new Vector3(0, 153, 255))
-          .AddFrame(26, textOutlineColor: new Vector3(229, 0, 79))
+          .AddFrame(11, textOutlineColor: new Vector3(0.0f, 0.6000f, 1.0f))
+          .AddFrame(26, textOutlineColor: new Vector3(0.8980f, 0.0f, 0.3098f))
           .EndFrameSet()
           .BeginFrameSet(27, 56)
-          .AddFrame(27, textOutlineColor: new Vector3(229, 0, 79))
+          .AddFrame(27, textOutlineColor: new Vector3(0.8980f, 0.0f, 0.3098f))
           .EndFrameSet()
           .BeginFrameSet(57, 70)
-          .AddFrame(57, textOutlineColor: new Vector3(229, 0, 79))
-          .AddFrame(70, textOutlineColor: new Vector3(240, 142, 55))
+          .AddFrame(57, textOutlineColor: new Vector3(0.8980f, 0.0f, 0.3098f))
+          .AddFrame(70, textOutlineColor: new Vector3(0.9412f, 0.5569f, 0.2157f))
           .EndFrameSet()
           .BeginFrameSet(71, 110)
-          .AddFrame(71, textOutlineColor: new Vector3(240, 142, 55))
+          .AddFrame(71, textOutlineColor: new Vector3(0.9412f, 0.5569f, 0.2157f))
           .EndFrameSet()
           .Build()
       );
@@ -542,25 +564,25 @@ public sealed class PvPFrontlineInfoOverlayNode : OverlayNode
                 .EndFrameSet()
                 .Build()
         );
-        _objectiveStateTextNode2.AddTimeline(new TimelineBuilder()
-            .BeginFrameSet(1, 10)
-            .AddFrame(1, textOutlineColor: new Vector3(0, 153, 255))
+        _objectiveStateTextNode2.AddTimeline(new TimelineBuilder().BeginFrameSet(1, 10)
+            .AddFrame(1, textOutlineColor: new Vector3(0.0f, 0.6000f, 1.0f))
             .EndFrameSet()
             .BeginFrameSet(11, 26)
-            .AddFrame(11, textOutlineColor: new Vector3(0, 153, 255))
-            .AddFrame(26, textOutlineColor: new Vector3(229, 0, 79))
+            .AddFrame(11, textOutlineColor: new Vector3(0.0f, 0.6000f, 1.0f))
+            .AddFrame(26, textOutlineColor: new Vector3(0.8980f, 0.0f, 0.3098f))
             .EndFrameSet()
             .BeginFrameSet(27, 56)
-            .AddFrame(27, textOutlineColor: new Vector3(229, 0, 79))
+            .AddFrame(27, textOutlineColor: new Vector3(0.8980f, 0.0f, 0.3098f))
             .EndFrameSet()
             .BeginFrameSet(57, 70)
-            .AddFrame(57, textOutlineColor: new Vector3(229, 0, 79))
-            .AddFrame(70, textOutlineColor: new Vector3(240, 142, 55))
+            .AddFrame(57, textOutlineColor: new Vector3(0.8980f, 0.0f, 0.3098f))
+            .AddFrame(70, textOutlineColor: new Vector3(0.9412f, 0.5569f, 0.2157f))
             .EndFrameSet()
             .BeginFrameSet(71, 110)
-            .AddFrame(71, textOutlineColor: new Vector3(240, 142, 55))
+            .AddFrame(71, textOutlineColor: new Vector3(0.9412f, 0.5569f, 0.2157f))
             .EndFrameSet()
             .Build()
         );
+        
     }
 }

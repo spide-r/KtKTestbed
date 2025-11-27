@@ -3,6 +3,7 @@ using System.Windows.Input;
 using Dalamud.IoC;
 using Dalamud.Plugin;
 using Dalamud.Plugin.Services;
+using KtKTestBed.OverlayControllerStuff;
 
 namespace KtKTestBed;
 
@@ -49,12 +50,14 @@ internal class Service {
     
     [PluginService]
     internal static IDutyState DutyState { get; private set; }
+    
+    internal static PvPFrontlineInfoAdapter PvPFrontlineInfoAdapter { get; private set; }
 
 
     internal static void Initialize(IDalamudPluginInterface pluginInterface) {
 
         pluginInterface.Create<Service>();
-        
+        PvPFrontlineInfoAdapter = new PvPFrontlineInfoAdapter();
         PluginLog.Verbose("Verbose");
         PluginLog.Debug("Debug");
         PluginLog.Info("Info");
