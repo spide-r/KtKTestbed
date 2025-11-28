@@ -1,11 +1,10 @@
-﻿namespace KtKTestBed.OverlayControllerStuff;
+﻿using System.Numerics;
+
+namespace KtKTestBed.OverlayControllerStuff;
 
 public class PvPFrontlineInfoAdapter
 {
-    // -- These Values can probably be tied to plugin config
-    public bool Visible { get; set;  } = true;
-    public bool Movable { get; set;  } = true;
-    // -- 
+    public bool Visible { get; set;  } = true; // this value could probably be tied to a plugin config / plugin state
     public string ObjectiveState { get; set;  } = "Objective state"; // Long text needs special formatting
     public string ClockString { get; set;  } = "--:--";
     public int Animation { get; private set; } = 101;  //animations:     101,102,103,0,104,105,0  

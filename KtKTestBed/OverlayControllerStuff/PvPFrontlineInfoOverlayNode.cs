@@ -1,12 +1,17 @@
-﻿using System.Numerics;
+﻿using System;
+using System.Numerics;
+using Dalamud.Game.Addon.Lifecycle;
+using Dalamud.Game.Addon.Lifecycle.AddonArgTypes;
 using FFXIVClientStructs.FFXIV.Component.GUI;
 using KamiToolKit.Classes;
 using KamiToolKit.Classes.Controllers;
 using KamiToolKit.Classes.Timelines;
 using KamiToolKit.Nodes;
+using KamiToolKit.Overlay;
+
 namespace KtKTestBed.OverlayControllerStuff;
 
-public sealed class PvPFrontlineInfoOverlayNode : OverlayNode
+public sealed class PvPFrontlineInfoOverlayNode : OverlayNode, IDisposable
 {
     public override OverlayLayer OverlayLayer { get; } = OverlayLayer.Background;
     private static string _pvPFrontLineInfoHr1 = "ui/uld/PvPFrontlineInfo_hr1.tex";
@@ -38,8 +43,6 @@ public sealed class PvPFrontlineInfoOverlayNode : OverlayNode
         _timeUntilNextObjectiveNode4.String = a.ClockString;
         IsVisible = a.Visible;
         _currentMidObjectiveNode6.IconId = a.IconForResNode5;
-        //todo: this is where we play the animations, modify position & size, toggle visibility
-        EnableMoving = a.Movable;
         if (_currentAnimationForNode != a.Animation)
         {
             Timeline?.StopAnimation();
@@ -52,22 +55,25 @@ public sealed class PvPFrontlineInfoOverlayNode : OverlayNode
             if (a.AnimationForResNode5 == -1)
             {
                 _iconObjectiveResNode5.Timeline?.StopAnimation();
-                _currentAnimationForObjectiveIcon = a.AnimationForResNode5;
             }
             else
             {
                 _iconObjectiveResNode5.Timeline?.StopAnimation();
                 _iconObjectiveResNode5.Timeline?.PlayAnimation(a.AnimationForResNode5);
-                _currentAnimationForObjectiveIcon = a.AnimationForResNode5;
             }
+
+            _currentAnimationForObjectiveIcon = a.AnimationForResNode5;
         }
 
     }
 
+    
     public PvPFrontlineInfoOverlayNode()
     {
+        var a = Service.PvPFrontlineInfoAdapter;
+        Service.AddonLifecycle.RegisterListener(AddonEvent.PostUpdate, "PvPFrontlineInfo", SetPositionScaleAndVisibility); //todo: deregister!!
+
         Size = new Vector2(212, 56);
-        Position = new Vector2(423, 459);
         NodeId = 1;
         NodeFlags = NodeFlags.AnchorTop | NodeFlags.AnchorLeft | NodeFlags.Enabled | NodeFlags.Fill |
                     NodeFlags.Focusable |
@@ -77,6 +83,39 @@ public sealed class PvPFrontlineInfoOverlayNode : OverlayNode
         LoadTimeline();
         AttachNodes();
     }
+
+    private void Dispose(bool disposing)
+    {
+        if (disposing)
+        {
+            Service.AddonLifecycle.UnregisterListener(AddonEvent.PostUpdate, "PvPFrontlineInfo", SetPositionScaleAndVisibility); 
+        }
+    }
+
+    public new void Dispose()
+    {
+        Dispose(true);
+        base.Dispose();
+        GC.SuppressFinalize(this);
+    }
+
+    private void SetPositionScaleAndVisibility(AddonEvent type, AddonArgs args)
+    {
+        unsafe
+        {
+            var addon = (AtkUnitBase*) args.Addon.Address;
+            Scale = new Vector2(addon->Scale,  addon->Scale);
+            var xX = addon->X;
+            var yY = addon->Y;
+            Position = new Vector2(xX, yY);
+            if (addon->IsVisible) // make sure we dont overlay two of them
+            {
+                IsVisible = false;
+            }
+        }    
+    }
+    
+
     private void ConstructObjects()
     {
         GenerateImageNodes();
