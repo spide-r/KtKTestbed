@@ -10,6 +10,8 @@ using KtKTestBed.OverlayControllerStuff;
 namespace KtKTestBed;
 
 // /xldata ai2
+
+//make smaller nodes which can be used as building blocks for more complex nodes
 public class KtKTestBedPlugin: IDalamudPlugin
 {
 

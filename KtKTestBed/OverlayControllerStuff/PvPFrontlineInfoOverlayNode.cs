@@ -8,7 +8,6 @@ namespace KtKTestBed.OverlayControllerStuff;
 
 public sealed class PvPFrontlineInfoOverlayNode : OverlayNode
 {
-    //todo somehow during animation 101 edgecolor for the time and the objective state thingy turns green ??
     public override OverlayLayer OverlayLayer { get; } = OverlayLayer.Background;
     private static string _pvPFrontLineInfoHr1 = "ui/uld/PvPFrontlineInfo_hr1.tex";
     private ImageNode _unkImageNode14 = null!;
@@ -18,10 +17,10 @@ public sealed class PvPFrontlineInfoOverlayNode : OverlayNode
     private ImageNode _unkImageNode10 = null!;
     private ImageNode _unkImageNode9 = null!;
     
-    private ResNode _unkResNode5 = null!;
+    private ResNode _iconObjectiveResNode5 = null!;
     private ImageNode _unkImageNode8 = null!;
     private ImageNode _unkImageNode7 = null!;
-    private ImageNode _currentMidObjectiveNode6 = null!; //this node is set to whatever icon is needed for current mid
+    private IconImageNode _currentMidObjectiveNode6 = null!; //this node is set to whatever icon is needed for current mid
     
     private TextNode _timeUntilNextObjectiveNode4 = null!;
     private ImageNode _clockIconNode3 = null!;
@@ -29,33 +28,33 @@ public sealed class PvPFrontlineInfoOverlayNode : OverlayNode
 
     //https://github.com/MidoriKami/VanillaPlus/blob/master/VanillaPlus/Features/BetterCursor/CursorImageNode.cs
 
-    private int current = 0;
-    private int current2 = 0;
+    private int _currentAnimationForNode = 0;
+    private int _currentAnimationForObjectiveIcon = 0;
     public override void Update()
     {
         var a = Service.PvPFrontlineInfoAdapter;
         IsVisible = a.Visible;
         //todo: this is where we play the animations, modify position & size, toggle visibility
         EnableMoving = a.Movable;
-        if (current != a.Animation)
+        if (_currentAnimationForNode != a.Animation)
         {
             Timeline?.StopAnimation();
             Timeline?.PlayAnimation(a.Animation);
-            current = a.Animation;
+            _currentAnimationForNode = a.Animation;
         }
         
-        if (current2 != a.AnimationForResNode5)
+        if (_currentAnimationForObjectiveIcon != a.AnimationForResNode5)
         {
             if (a.AnimationForResNode5 == -1)
             {
-                _unkResNode5.Timeline?.StopAnimation();
-                current2 = a.AnimationForResNode5;
+                _iconObjectiveResNode5.Timeline?.StopAnimation();
+                _currentAnimationForObjectiveIcon = a.AnimationForResNode5;
             }
             else
             {
-                _unkResNode5.Timeline?.StopAnimation();
-                _unkResNode5.Timeline?.PlayAnimation(a.AnimationForResNode5);
-                current2 = a.AnimationForResNode5;
+                _iconObjectiveResNode5.Timeline?.StopAnimation();
+                _iconObjectiveResNode5.Timeline?.PlayAnimation(a.AnimationForResNode5);
+                _currentAnimationForObjectiveIcon = a.AnimationForResNode5;
             }
         }
 
@@ -63,7 +62,7 @@ public sealed class PvPFrontlineInfoOverlayNode : OverlayNode
 
     public PvPFrontlineInfoOverlayNode()
     {
-        Size = new Vector2(212, 56); //106,28
+        Size = new Vector2(212, 56);
         Position = new Vector2(423, 459);
         NodeId = 1;
         NodeFlags = NodeFlags.AnchorTop | NodeFlags.AnchorLeft | NodeFlags.Enabled | NodeFlags.Fill |
@@ -81,7 +80,7 @@ public sealed class PvPFrontlineInfoOverlayNode : OverlayNode
         GenerateClock();
         LoadPvPMksForAllNodes();
     }
-    private void AttachNodes() //todo ensure attachment type is valid
+    private void AttachNodes() 
     {
         _unkImageNode14.AttachNode(this);
         _unkImageNode13.AttachNode(this);
@@ -90,10 +89,10 @@ public sealed class PvPFrontlineInfoOverlayNode : OverlayNode
         _unkImageNode10.AttachNode(this);
         _unkImageNode9.AttachNode(this);
 
-        _unkResNode5.AttachNode(this);
-        _unkImageNode8.AttachNode(_unkResNode5);
-        _unkImageNode7.AttachNode(_unkResNode5);
-        _currentMidObjectiveNode6.AttachNode(_unkResNode5);
+        _iconObjectiveResNode5.AttachNode(this);
+        _unkImageNode8.AttachNode(_iconObjectiveResNode5);
+        _unkImageNode7.AttachNode(_iconObjectiveResNode5);
+        _currentMidObjectiveNode6.AttachNode(_iconObjectiveResNode5);
         
         _timeUntilNextObjectiveNode4.AttachNode(this);
         _clockIconNode3.AttachNode(this);
@@ -119,7 +118,6 @@ public sealed class PvPFrontlineInfoOverlayNode : OverlayNode
             PartId = 18,
             NodeFlags = NodeFlags.AnchorTop | NodeFlags.AnchorLeft | NodeFlags.Enabled | NodeFlags.EmitsEvents,
             WrapMode = WrapMode.Stretch,
-            //ImageNodeFlags = ImageNodeFlags.FlipV, //todo: needs to be 0x20 not 0x2
         };
         
         _unkImageNode13 = new ImageNode()
@@ -240,7 +238,7 @@ public sealed class PvPFrontlineInfoOverlayNode : OverlayNode
     }
     private void GenerateResnode5()
     {
-        _unkResNode5 = new ResNode
+        _iconObjectiveResNode5 = new ResNode
         {
             NodeId = 5,
             IsVisible = true,
@@ -275,7 +273,7 @@ public sealed class PvPFrontlineInfoOverlayNode : OverlayNode
             RotationDegrees = 183.1f,
         };
 
-        _currentMidObjectiveNode6 = new SimpleImageNode
+        _currentMidObjectiveNode6 = new IconImageNode
         {
             NodeId = 6,
             Position = new Vector2(0,0),
@@ -283,12 +281,8 @@ public sealed class PvPFrontlineInfoOverlayNode : OverlayNode
             Origin = new Vector2(14,14),
             Color = new Vector4(1,1,1,1),
             AddColor = new Vector3(0.395f,0.395f,0.395f),
-           // ImageNodeFlags = ImageNodeFlags.AutoFit,
-            /*PartId = 0,
-            TextureCoordinates = new Vector2(0, 0),
-            TextureSize = new Vector2(14, 14), //28,28 or 14,14
-            TexturePath = ,*/
             WrapMode = WrapMode.Stretch,
+            IconId = 60904,
             NodeFlags = NodeFlags.AnchorTop | NodeFlags.AnchorLeft | NodeFlags.Enabled | NodeFlags.Visible | NodeFlags.EmitsEvents,
 
         };
@@ -489,7 +483,7 @@ public sealed class PvPFrontlineInfoOverlayNode : OverlayNode
     }
     private void LoadTimelineForResNode5()
     {
-        _unkResNode5.AddTimeline(new TimelineBuilder()
+        _iconObjectiveResNode5.AddTimeline(new TimelineBuilder()
             .BeginFrameSet(1, 70)
             .AddLabel(1, 17, AtkTimelineJumpBehavior.Start, 0)
             .AddLabel(10, 0, AtkTimelineJumpBehavior.PlayOnce, 0)
