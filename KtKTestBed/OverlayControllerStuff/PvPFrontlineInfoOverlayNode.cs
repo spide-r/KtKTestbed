@@ -18,8 +18,8 @@ public sealed class PvPFrontlineInfoOverlayNode : OverlayNode
     private ImageNode _unkImageNode9 = null!;
     
     private ResNode _iconObjectiveResNode5 = null!;
-    private ImageNode _unkImageNode8 = null!;
-    private ImageNode _unkImageNode7 = null!;
+    private ImageNode _pulsingGlowingIconNode8 = null!;
+    private ImageNode _raysSpinningImageNode7 = null!;
     private IconImageNode _currentMidObjectiveNode6 = null!; //this node is set to whatever icon is needed for current mid
     
     private TextNode _timeUntilNextObjectiveNode4 = null!;
@@ -32,8 +32,12 @@ public sealed class PvPFrontlineInfoOverlayNode : OverlayNode
     private int _currentAnimationForObjectiveIcon = 0;
     public override void Update()
     {
+        
         var a = Service.PvPFrontlineInfoAdapter;
+        _objectiveStateTextNode2.String = a.ObjectiveState;
+        _timeUntilNextObjectiveNode4.String = a.ClockString;
         IsVisible = a.Visible;
+        _currentMidObjectiveNode6.IconId = a.IconForResNode5;
         //todo: this is where we play the animations, modify position & size, toggle visibility
         EnableMoving = a.Movable;
         if (_currentAnimationForNode != a.Animation)
@@ -90,8 +94,8 @@ public sealed class PvPFrontlineInfoOverlayNode : OverlayNode
         _unkImageNode9.AttachNode(this);
 
         _iconObjectiveResNode5.AttachNode(this);
-        _unkImageNode8.AttachNode(_iconObjectiveResNode5);
-        _unkImageNode7.AttachNode(_iconObjectiveResNode5);
+        _pulsingGlowingIconNode8.AttachNode(_iconObjectiveResNode5);
+        _raysSpinningImageNode7.AttachNode(_iconObjectiveResNode5);
         _currentMidObjectiveNode6.AttachNode(_iconObjectiveResNode5);
         
         _timeUntilNextObjectiveNode4.AttachNode(this);
@@ -204,7 +208,6 @@ public sealed class PvPFrontlineInfoOverlayNode : OverlayNode
             TextColor = new Vector4(1,1,1,1),
             TextOutlineColor = new Vector4(0,0.6f,1,1),
             TextFlags = TextFlags.Edge | TextFlags.Glare,
-            String = "00:00", 
             NodeFlags = NodeFlags.AnchorTop | NodeFlags.AnchorLeft | NodeFlags.Visible | NodeFlags.Enabled | NodeFlags.EmitsEvents
         }; 
 
@@ -231,9 +234,7 @@ public sealed class PvPFrontlineInfoOverlayNode : OverlayNode
             TextColor = new Vector4(1,1,1,1),
             TextOutlineColor = new Vector4(0,0.6f,1,1),
             NodeFlags = NodeFlags.AnchorTop | NodeFlags.AnchorLeft | NodeFlags.Visible | NodeFlags.Enabled | NodeFlags.EmitsEvents,
-            TextFlags = TextFlags.Edge | TextFlags.Glare | TextFlags.WordWrap | TextFlags.MultiLine,
-            String = "Objective State"
-
+            TextFlags = TextFlags.Edge | TextFlags.Glare | TextFlags.WordWrap | TextFlags.MultiLine
         };
     }
     private void GenerateResnode5()
@@ -248,7 +249,7 @@ public sealed class PvPFrontlineInfoOverlayNode : OverlayNode
 
         };
 
-        _unkImageNode8 = new ImageNode()
+        _pulsingGlowingIconNode8 = new ImageNode()
         {
             NodeId = 8,
             Position = new Vector2(-16,-16),
@@ -260,7 +261,7 @@ public sealed class PvPFrontlineInfoOverlayNode : OverlayNode
             WrapMode = WrapMode.Stretch
         };
 
-        _unkImageNode7 = new ImageNode()
+        _raysSpinningImageNode7 = new ImageNode()
         {
             NodeId = 7,
             Position = new Vector2(-18,-18),
@@ -282,7 +283,6 @@ public sealed class PvPFrontlineInfoOverlayNode : OverlayNode
             Color = new Vector4(1,1,1,1),
             AddColor = new Vector3(0.395f,0.395f,0.395f),
             WrapMode = WrapMode.Stretch,
-            IconId = 60904,
             NodeFlags = NodeFlags.AnchorTop | NodeFlags.AnchorLeft | NodeFlags.Enabled | NodeFlags.Visible | NodeFlags.EmitsEvents,
 
         };
@@ -294,8 +294,8 @@ public sealed class PvPFrontlineInfoOverlayNode : OverlayNode
         PvPIconNodeTextureHelper.LoadPvPmksGuageTexture(_unkImageNode13);
         PvPIconNodeTextureHelper.LoadPvPmksGuageTexture(_unkImageNode12);
         PvPIconNodeTextureHelper.LoadPvPmksGuageTexture(_unkImageNode11);
-        PvPIconNodeTextureHelper.LoadPvPmksGuageTexture(_unkImageNode8);
-        PvPIconNodeTextureHelper.LoadPvPmksGuageTexture(_unkImageNode7);
+        PvPIconNodeTextureHelper.LoadPvPmksGuageTexture(_pulsingGlowingIconNode8);
+        PvPIconNodeTextureHelper.LoadPvPmksGuageTexture(_raysSpinningImageNode7);
     }
     public void LoadTimelineForRoot()
     {
@@ -492,7 +492,7 @@ public sealed class PvPFrontlineInfoOverlayNode : OverlayNode
             .EndFrameSet()
             .Build()
         );
-        _unkImageNode8.AddTimeline(new TimelineBuilder()
+        _pulsingGlowingIconNode8.AddTimeline(new TimelineBuilder()
             .BeginFrameSet(11, 70)
             .AddFrame(11, alpha: 63)
             .AddFrame(41, alpha: 153)
@@ -500,7 +500,7 @@ public sealed class PvPFrontlineInfoOverlayNode : OverlayNode
             .EndFrameSet()
             .Build()
         );
-        _unkImageNode7.AddTimeline(new TimelineBuilder()
+        _raysSpinningImageNode7.AddTimeline(new TimelineBuilder()
             .BeginFrameSet(11, 70)
             .AddFrame(11, rotation: 0)
             .AddFrame(70, rotation: 6.2831855f)

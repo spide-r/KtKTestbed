@@ -54,13 +54,13 @@ public class KtKTestBedPlugin: IDalamudPlugin
     
     private void OnCommand(string command, string args)
     {
-        Service.PvPFrontlineInfoAdapter.Animation = Convert.ToInt32(args);
+       //Service.PvPFrontlineInfoAdapter.Animation = Convert.ToInt32(args);
     }
 
     
     private void OnCommand2(string command, string args)
     {
-        Service.PvPFrontlineInfoAdapter.AnimationForResNode5 = Convert.ToInt32(args);
+       // Service.PvPFrontlineInfoAdapter.AnimationForResNode5 = Convert.ToInt32(args);
     }
 
     
