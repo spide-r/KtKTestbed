@@ -7,6 +7,7 @@ using KamiToolKit;
 using KamiToolKit.Classes.Controllers;
 using KamiToolKit.Overlay;
 using KtKTestBed.OverlayControllerStuff;
+using KtKTestBed.PvPMKSBattleLog;
 
 namespace KtKTestBed;
 
@@ -49,19 +50,20 @@ public class KtKTestBedPlugin: IDalamudPlugin
     
     private void loadNode()
     {
-        _overlayController?.CreateNode(() => new PvPFrontlineInfoOverlayNode()); // node creation MUST happen on the main thread. .CreateNode facilitates this
+       //_overlayController?.CreateNode(() => new PVPMKSBattleLog()); // node creation MUST happen on the main thread. .CreateNode facilitates this
+       //_overlayController?.CreateNode(() => new PvPFrontlineInfoOverlayNode()); // node creation MUST happen on the main thread. .CreateNode facilitates this
     }
     
     
     private void OnCommand(string command, string args)
     {
-       //Service.PvPFrontlineInfoAdapter.Animation = Convert.ToInt32(args);
+       Service.PvPFrontlineInfoAdapter.TurnOrangeThrobRed();
     }
 
     
     private void OnCommand2(string command, string args)
     {
-       // Service.PvPFrontlineInfoAdapter.AnimationForResNode5 = Convert.ToInt32(args);
+       Service.PvPFrontlineInfoAdapter.ShowIcon();
     }
 
     

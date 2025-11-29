@@ -134,7 +134,7 @@ public sealed class PvPFrontlineInfoOverlayNode : OverlayNode, IDisposable
 
         _iconObjectiveResNode5.AttachNode(this);
         _pulsingGlowingIconNode8.AttachNode(_iconObjectiveResNode5);
-        _raysSpinningImageNode7.AttachNode(_iconObjectiveResNode5);
+        //_raysSpinningImageNode7.AttachNode(_iconObjectiveResNode5);
         _currentMidObjectiveNode6.AttachNode(_iconObjectiveResNode5);
         
         _timeUntilNextObjectiveNode4.AttachNode(this);
