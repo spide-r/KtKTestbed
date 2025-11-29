@@ -26,7 +26,7 @@ public class PVPMKSInfoTextureHelper
             });
         }
     }
-    public static unsafe void LoadPvPScreenInformation(ImageNode node) {
+    public static unsafe void LoadPvPMKSInfo(ImageNode node) {
         node.AddPart(new Part {
             Id = 0, TexturePath = Tex, TextureCoordinates = new Vector2(0, 0), 
             Size = new Vector2(40,40)

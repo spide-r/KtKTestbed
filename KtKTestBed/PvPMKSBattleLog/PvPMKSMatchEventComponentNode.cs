@@ -87,15 +87,15 @@ public class PvPMKSMatchEventComponentNode: ResNode //this is a Base Component N
         _unkImageNode17 = ConstructAndLoadArrowImageNode(new Vector2(80, 17), 0.118f);
         _unkImageNode16 = ConstructAndLoadArrowImageNode(new Vector2(50, 17), 0.039f);
         _unkImageNode15 = ConstructAndLoadArrowImageNode(new Vector2(20, 17), 0.113f);
-        _unkImageNode12 = ConstructAndLoadCrossedWordsImageNode();
-        _unkImageNode11 = ConstructAndLoadCrossedWordsImageNode();
-        _unkImageNode10 = ConstructAndLoadCrossedWordsImageNode();
-        _unkImageNode9 = ConstructAndLoadCrossedWordsImageNode();
+        _unkImageNode12 = ConstructAndLoadCrossedSwordsImageNode();
+        _unkImageNode11 = ConstructAndLoadCrossedSwordsImageNode();
+        _unkImageNode10 = ConstructAndLoadCrossedSwordsImageNode();
+        _unkImageNode9 = ConstructAndLoadCrossedSwordsImageNode();
     }
 
-    private unsafe ImageNode ConstructAndLoadCrossedWordsImageNode()
+    private static unsafe ImageNode ConstructAndLoadCrossedSwordsImageNode()
     {
-        ImageNode image = new ImageNode
+        var image = new ImageNode
         {
             Position = new Vector2(250,-8),
             Size = new Vector2(46,54),
@@ -105,7 +105,7 @@ public class PvPMKSMatchEventComponentNode: ResNode //this is a Base Component N
             NodeFlags = NodeFlags.AnchorTop | NodeFlags.AnchorLeft | NodeFlags.Enabled | NodeFlags.EmitsEvents,
             WrapMode = WrapMode.Stretch
         };
-        Part p = new Part
+        var p = new Part
         {
             Id = 0,
             Size = new Vector2(128,128),
@@ -115,9 +115,9 @@ public class PvPMKSMatchEventComponentNode: ResNode //this is a Base Component N
         return image;
     }
 
-    private ImageNode ConstructAndLoadArrowImageNode(Vector2 position, float alpha)
+    private static ImageNode ConstructAndLoadArrowImageNode(Vector2 position, float alpha)
     {
-        ImageNode image = new ImageNode
+        var image = new ImageNode
         {
             Position = position,
             NodeFlags = NodeFlags.AnchorTop | NodeFlags.AnchorLeft | NodeFlags.Enabled |
