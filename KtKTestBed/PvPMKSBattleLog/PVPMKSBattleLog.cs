@@ -9,6 +9,7 @@ namespace KtKTestBed.PvPMKSBattleLog;
 
 public class PVPMKSBattleLog: OverlayNode
 {
+    //todo we may have to manually expose methods to trigger animations in each node
     public override OverlayLayer OverlayLayer { get; } = OverlayLayer.Background;
 
     private static string _pvpHudMove = "ui/uld/PVPHudMove.tex"; 
