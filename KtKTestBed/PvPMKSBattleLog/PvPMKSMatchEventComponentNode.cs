@@ -19,7 +19,7 @@ public class PvPMKSMatchEventComponentNode: ResNode //this is a Base Component N
     private TextNode _unkTextNode26 = null!;
     private ImageNode _unkImageNode25 = null!;
     private ResNode _unkResNode24 = null!;
-    private ResNode _unkBaseComponentNode23 = null!; //basecomponent
+    private PVPMKSInfoMatchEventIconNode _unkBaseComponentNode23 = null!; //basecomponent
     
     private ImageNode _unkImageNode22 = null!;
     private ImageNode _unkImageNode21 = null!;
@@ -32,7 +32,7 @@ public class PvPMKSMatchEventComponentNode: ResNode //this is a Base Component N
     
     private NineGridNode _unkNineGridNode14 = null!;
     
-    private ResNode _unkBaseComponentNode13 = null!; //basecomponent
+    private PVPMKSInfoMatchEventIconNode _unkBaseComponentNode13 = null!; //basecomponent
     
     private ImageNode _unkImageNode12 = null!;
     private ImageNode _unkImageNode11 = null!;
@@ -55,6 +55,7 @@ public class PvPMKSMatchEventComponentNode: ResNode //this is a Base Component N
         ConstructImageNodes();
         ConstructNinegridNodes();
         ConstructTextNodes();
+        AddPartsToNodes();
         LoadTimelineForImageNodes();
         LoadTimelineForNineGridNodes();
         LoadTimelineForResnodes();
