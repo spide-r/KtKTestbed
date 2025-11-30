@@ -50,20 +50,23 @@ public class KtKTestBedPlugin: IDalamudPlugin
     
     private void loadNode()
     {
-       //_overlayController?.CreateNode(() => new PVPMKSBattleLog()); // node creation MUST happen on the main thread. .CreateNode facilitates this
+       _overlayController?.CreateNode(() => new PVPMKSBattleLog()); // node creation MUST happen on the main thread. .CreateNode facilitates this
        //_overlayController?.CreateNode(() => new PvPFrontlineInfoOverlayNode()); // node creation MUST happen on the main thread. .CreateNode facilitates this
     }
     
     
     private void OnCommand(string command, string args)
     {
-       Service.PvPFrontlineInfoAdapter.TurnOrangeThrobRed();
+        Service.PVPMKSBattleLogAdapter.BAD_DESIGN_PATTERN = Convert.ToInt32(args);
+        Service.ChatGui.Print("Tested " + Convert.ToInt32(args));
+
+        // Service.PvPFrontlineInfoAdapter.TurnOrangeThrobRed();
     }
 
     
     private void OnCommand2(string command, string args)
     {
-       Service.PvPFrontlineInfoAdapter.ShowIcon();
+       //Service.PvPFrontlineInfoAdapter.ShowIcon();
     }
 
     

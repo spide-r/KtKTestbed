@@ -4,6 +4,7 @@ using Dalamud.IoC;
 using Dalamud.Plugin;
 using Dalamud.Plugin.Services;
 using KtKTestBed.OverlayControllerStuff;
+using KtKTestBed.PvPMKSBattleLog;
 
 namespace KtKTestBed;
 
@@ -52,12 +53,14 @@ internal class Service {
     internal static IDutyState DutyState { get; private set; }
     
     internal static PvPFrontlineInfoAdapter PvPFrontlineInfoAdapter { get; private set; }
+    internal static PVPMKSBattleLogAdapter PVPMKSBattleLogAdapter { get; private set; }
 
 
     internal static void Initialize(IDalamudPluginInterface pluginInterface) {
 
         pluginInterface.Create<Service>();
         PvPFrontlineInfoAdapter = new PvPFrontlineInfoAdapter();
+        PVPMKSBattleLogAdapter = new PVPMKSBattleLogAdapter();
         PluginLog.Verbose("Verbose");
         PluginLog.Debug("Debug");
         PluginLog.Info("Info");

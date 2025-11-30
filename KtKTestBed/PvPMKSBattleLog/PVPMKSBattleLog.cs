@@ -46,10 +46,29 @@ public class PVPMKSBattleLog: OverlayNode
     //rn13 <- rn14 <- rn15 <- 8 ninegrid nodes attached, all have offsets
     //6 base component nodes w/ 26 nodes (mostly image), all have offsets
     //rn2 <- textnode, rn4 <- ninegrid, image
+
+    private int _currentAnimationForNode = 0;
+    public override void Update()
+    {
+        
+        var a = Service.PVPMKSBattleLogAdapter;
+        if (_currentAnimationForNode != a.BAD_DESIGN_PATTERN)
+        {
+            _pvPmksMatchEventComponentNode12.PlayAnimation(a.BAD_DESIGN_PATTERN);
+            _currentAnimationForNode = a.BAD_DESIGN_PATTERN;
+        }
+        
+
+    }
+
     public PVPMKSBattleLog()
     {
+        Position = new Vector2(519, 519); //todo remove
         Size = new Vector2(384, 260);
         NodeId = 1;
+        NodeFlags = NodeFlags.AnchorTop | NodeFlags.AnchorLeft | NodeFlags.Enabled | NodeFlags.Fill |
+                    NodeFlags.Focusable |
+                    NodeFlags.EmitsEvents;
         ConstructResNodes();
         ConstructImageNodes();
         ConstructTextNodes();

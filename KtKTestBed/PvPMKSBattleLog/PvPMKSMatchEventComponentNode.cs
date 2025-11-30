@@ -45,12 +45,25 @@ public class PvPMKSMatchEventComponentNode: ResNode //this is a Base Component N
     private TextNode _unkTextNode6 = null!;
     private TextNode _unkTextNode5 = null!;
     private TextNode _unkTextNode4 = null!;
+
+    public void PlayAnimation(int anim)
+    {
+        Service.PluginLog.Debug(anim.ToString());
+        Timeline?.PlayAnimation(anim);
+        _unkResNode2.Timeline?.PlayAnimation(anim);
+        _unkResNode3.Timeline?.PlayAnimation(anim);
+        _unkResNode7.Timeline?.PlayAnimation(anim);
+        _unkResNode24.Timeline?.PlayAnimation(anim);
+        _unkBaseComponentNode13.Timeline?.PlayAnimation(anim);
+        _unkBaseComponentNode23.Timeline?.PlayAnimation(anim);
+    }
     public PvPMKSMatchEventComponentNode(Vector2 position)
     {
         Position = position;
         Size = new Vector2(384,40);
         NodeFlags = NodeFlags.AnchorTop | NodeFlags.AnchorLeft | NodeFlags.Visible | NodeFlags.Enabled |
                     NodeFlags.EmitsEvents;
+        IsVisible = true;
         ConstructResNodes();
         ConstructImageNodes();
         ConstructNinegridNodes();
@@ -63,7 +76,7 @@ public class PvPMKSMatchEventComponentNode: ResNode //this is a Base Component N
         LoadTimelineForRoot();
         AttachNodes();
     }
-
+    
     private void AttachNodes()
     {
         _unkResNode2.AttachNode(this);
@@ -252,6 +265,7 @@ public class PvPMKSMatchEventComponentNode: ResNode //this is a Base Component N
     private void AddPartsToNodes()
     {
         PVPMKSTextureHelper.LoadPvPScreenInformation(_unkNineGridNode27);
+        PVPMKSTextureHelper.LoadPvPScreenInformation(_unkNineGridNode14);
     }
 
     private void ConstructResNodes()
