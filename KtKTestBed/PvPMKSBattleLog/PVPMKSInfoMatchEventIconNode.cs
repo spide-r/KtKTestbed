@@ -21,8 +21,9 @@ public class PVPMKSInfoMatchEventIconNode : ResNode
     private ImageNode _matchEventJobIconNode3 = null!;
     
     //todo: expose playing animation maybe
-    public PVPMKSInfoMatchEventIconNode(Vector2 pos)
+    public PVPMKSInfoMatchEventIconNode(Vector2 pos, uint nodeId)
     {
+	    NodeId = nodeId;
         Size = new Vector2(40, 40);
         Position = pos;
         NodeFlags = NodeFlags.AnchorTop | NodeFlags.AnchorLeft | NodeFlags.Enabled | NodeFlags.EmitsEvents;

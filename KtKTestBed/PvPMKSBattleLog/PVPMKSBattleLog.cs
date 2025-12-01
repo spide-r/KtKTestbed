@@ -1,4 +1,5 @@
-﻿using System.Numerics;
+﻿using System;
+using System.Numerics;
 using FFXIVClientStructs.FFXIV.Component.GUI;
 using KamiToolKit.Classes;
 using KamiToolKit.Classes.Timelines;
@@ -7,7 +8,7 @@ using KamiToolKit.Overlay;
 
 namespace KtKTestBed.PvPMKSBattleLog;
 
-public class PVPMKSBattleLog: OverlayNode
+public class PVPMKSBattleLog: OverlayNode, IDisposable
 {
     //todo we may have to manually expose methods to trigger animations in each node
     public override OverlayLayer OverlayLayer { get; } = OverlayLayer.Background;
@@ -63,12 +64,13 @@ public class PVPMKSBattleLog: OverlayNode
 
     public PVPMKSBattleLog()
     {
-        Position = new Vector2(519, 519); //todo remove
+        Position = new Vector2(519, 619); //todo remove
         Size = new Vector2(384, 260);
         NodeId = 1;
         NodeFlags = NodeFlags.AnchorTop | NodeFlags.AnchorLeft | NodeFlags.Enabled | NodeFlags.Fill |
                     NodeFlags.Focusable |
                     NodeFlags.EmitsEvents;
+        IsVisible = true;
         ConstructResNodes();
         ConstructImageNodes();
         ConstructTextNodes();
@@ -84,6 +86,12 @@ public class PVPMKSBattleLog: OverlayNode
         // construct objects
         // load timelines
         // attach nodes
+    }
+    
+    public new void Dispose()
+    {
+        base.Dispose();
+        GC.SuppressFinalize(this);
     }
 
     private void AttachNodes()
@@ -116,6 +124,7 @@ public class PVPMKSBattleLog: OverlayNode
     {
         _unkTextNode3 = new TextNode
         {
+            NodeId = 3,
             Position = new Vector2(31,0),
             Size = new Vector2(352,32),
             Origin = new Vector2(150,16),
@@ -133,18 +142,19 @@ public class PVPMKSBattleLog: OverlayNode
 
     private void ConstructAndLoadMatchEventComponentNodes()
     {
-        _pvPmksMatchEventComponentNode12 = new PvPMKSMatchEventComponentNode(new Vector2(0, 52));
-        _pvPmksMatchEventComponentNode11 = new PvPMKSMatchEventComponentNode(new Vector2(0, 94));
-        _pvPmksMatchEventComponentNode10 = new PvPMKSMatchEventComponentNode(new Vector2(0, 136));
-        _pvPmksMatchEventComponentNode9 = new PvPMKSMatchEventComponentNode(new Vector2(0, 178));
-        _pvPmksMatchEventComponentNode8 = new PvPMKSMatchEventComponentNode(new Vector2(0, 220));
-        _pvPmksMatchEventComponentNode7 = new PvPMKSMatchEventComponentNode(new Vector2(0, 262));
+        _pvPmksMatchEventComponentNode12 = new PvPMKSMatchEventComponentNode(new Vector2(0, 52), 12);
+        _pvPmksMatchEventComponentNode11 = new PvPMKSMatchEventComponentNode(new Vector2(0, 94), 11);
+        _pvPmksMatchEventComponentNode10 = new PvPMKSMatchEventComponentNode(new Vector2(0, 136), 10);
+        _pvPmksMatchEventComponentNode9 = new PvPMKSMatchEventComponentNode(new Vector2(0, 178), 9);
+        _pvPmksMatchEventComponentNode8 = new PvPMKSMatchEventComponentNode(new Vector2(0, 220), 8);
+        _pvPmksMatchEventComponentNode7 = new PvPMKSMatchEventComponentNode(new Vector2(0, 262), 7);
     }
 
     private void ConstructNineGridNodes()
     {
         _unkNineGridNode23 = new NineGridNode
         {
+            NodeId = 23,
             Position = new Vector2(0,0),
             Size = new Vector2(404,270),
             NodeFlags = NodeFlags.AnchorTop | NodeFlags.AnchorLeft | NodeFlags.Enabled | NodeFlags.EmitsEvents,
@@ -152,6 +162,7 @@ public class PVPMKSBattleLog: OverlayNode
         };
         _unkNineGridNode22 = new NineGridNode
         {
+            NodeId = 22,
             Position = new Vector2(10,225),
             Size = new Vector2(384,40),
             NodeFlags = NodeFlags.AnchorTop | NodeFlags.AnchorLeft | NodeFlags.Enabled | NodeFlags.EmitsEvents,
@@ -163,6 +174,7 @@ public class PVPMKSBattleLog: OverlayNode
         
         _unkNineGridNode21 = new NineGridNode
         {
+            NodeId = 21,
             Position = new Vector2(10,183),
             Size = new Vector2(384,40),
             NodeFlags = NodeFlags.AnchorTop | NodeFlags.AnchorLeft | NodeFlags.Enabled | NodeFlags.EmitsEvents,
@@ -173,6 +185,7 @@ public class PVPMKSBattleLog: OverlayNode
         };
         _unkNineGridNode20 = new NineGridNode
         {
+            NodeId = 20,
             Position = new Vector2(10,141),
             Size = new Vector2(384,40),
             NodeFlags = NodeFlags.AnchorTop | NodeFlags.AnchorLeft | NodeFlags.Enabled | NodeFlags.EmitsEvents,
@@ -184,6 +197,7 @@ public class PVPMKSBattleLog: OverlayNode
         
         _unkNineGridNode19 = new NineGridNode
         {
+            NodeId = 19,
             Position = new Vector2(10,99),
             Size = new Vector2(384,40),
             NodeFlags = NodeFlags.AnchorTop | NodeFlags.AnchorLeft | NodeFlags.Enabled | NodeFlags.EmitsEvents,
@@ -195,6 +209,7 @@ public class PVPMKSBattleLog: OverlayNode
         
         _unkNineGridNode18 = new NineGridNode
         {
+            NodeId = 18,
             Position = new Vector2(10,57),
             Size = new Vector2(384,40),
             NodeFlags = NodeFlags.AnchorTop | NodeFlags.AnchorLeft | NodeFlags.Enabled | NodeFlags.EmitsEvents,
@@ -206,6 +221,7 @@ public class PVPMKSBattleLog: OverlayNode
         
         _unkNineGridNode17 = new NineGridNode
         {
+            NodeId = 17,
             Position = new Vector2(10,25),
             Size = new Vector2(384,32),
             NodeFlags = NodeFlags.AnchorTop | NodeFlags.AnchorLeft | NodeFlags.Enabled | NodeFlags.EmitsEvents,
@@ -216,6 +232,7 @@ public class PVPMKSBattleLog: OverlayNode
         
         _unkNineGridNode16 = new NineGridNode
         {
+            NodeId = 16,
             Position = new Vector2(20,12),
             Size = new Vector2(384,10),
             NodeFlags = NodeFlags.AnchorTop | NodeFlags.AnchorLeft | NodeFlags.Enabled | NodeFlags.EmitsEvents,
@@ -225,6 +242,7 @@ public class PVPMKSBattleLog: OverlayNode
 
         _unkNineGridNode6 = new NineGridNode
         {
+            NodeId = 6,
             Size = new Vector2(384, 32),
             NodeFlags = NodeFlags.AnchorTop | NodeFlags.AnchorLeft | NodeFlags.Enabled | NodeFlags.EmitsEvents,
             Offsets = new Vector4(8f, 8f, 16f, 16f)
@@ -276,6 +294,7 @@ public class PVPMKSBattleLog: OverlayNode
     {
         _unkImageNode5 = new SimpleImageNode
         {
+            NodeId = 5,
             Position = new Vector2(4,2),
             Size = new Vector2(28,28),
             NodeFlags = NodeFlags.AnchorTop | NodeFlags.AnchorLeft | NodeFlags.Visible | NodeFlags.Enabled | NodeFlags.EmitsEvents,
@@ -290,20 +309,22 @@ public class PVPMKSBattleLog: OverlayNode
     {
         _unkResNode13 = new ResNode
         {
+            NodeId = 13,
             Position = new Vector2(-10,-5),
             Size = new Vector2(404, 270),
             NodeFlags = NodeFlags.AnchorTop | NodeFlags.AnchorLeft | NodeFlags.Visible | NodeFlags.Enabled | NodeFlags.EmitsEvents
         };
         _unkResNode14 = new ResNode
         {
+            NodeId = 14,
             Position = new Vector2(0,0),
             Size = new Vector2(404, 270),
             NodeFlags = NodeFlags.AnchorTop | NodeFlags.AnchorLeft | NodeFlags.Visible | NodeFlags.Enabled | NodeFlags.EmitsEvents,
             Scale = new Vector2(-1, 1)
         };
-        
         _unkResNode15 = new ResNode
         {
+            NodeId = 15,
             Position = new Vector2(0,0),
             Size = new Vector2(404, 270),
             NodeFlags = NodeFlags.AnchorTop | NodeFlags.AnchorLeft | NodeFlags.Visible | NodeFlags.Enabled | NodeFlags.EmitsEvents,
@@ -311,6 +332,7 @@ public class PVPMKSBattleLog: OverlayNode
 
         _unkResNode2 = new ResNode
         {
+            NodeId = 2,
             Position = new Vector2(0,20),
             Size = new Vector2(384,32),
             NodeFlags = NodeFlags.AnchorTop | NodeFlags.AnchorLeft | NodeFlags.Visible | NodeFlags.Enabled | NodeFlags.EmitsEvents,
@@ -318,12 +340,12 @@ public class PVPMKSBattleLog: OverlayNode
         };
         _unkResNode4 = new ResNode
         {
+            NodeId = 4,
             Size = new Vector2(384,32),
             NodeFlags = NodeFlags.AnchorTop | NodeFlags.AnchorLeft | NodeFlags.Visible | NodeFlags.Enabled | NodeFlags.EmitsEvents,
 
         };
     }
-
     private void ConstructNineGridNodeTimelines()
     {
         var emptyTimeline = new TimelineBuilder()

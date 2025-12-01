@@ -57,8 +57,9 @@ public class PvPMKSMatchEventComponentNode: ResNode //this is a Base Component N
         _unkBaseComponentNode13.Timeline?.PlayAnimation(anim);
         _unkBaseComponentNode23.Timeline?.PlayAnimation(anim);
     }
-    public PvPMKSMatchEventComponentNode(Vector2 position)
+    public PvPMKSMatchEventComponentNode(Vector2 position, uint id)
     {
+        NodeId = id;
         Position = position;
         Size = new Vector2(384,40);
         NodeFlags = NodeFlags.AnchorTop | NodeFlags.AnchorLeft | NodeFlags.Visible | NodeFlags.Enabled |
@@ -112,6 +113,7 @@ public class PvPMKSMatchEventComponentNode: ResNode //this is a Base Component N
     {
         _unkNineGridNode27 = new NineGridNode
         {
+            NodeId = 27,
             Position = new Vector2(-20, 0),
             Size = new Vector2(414,40),
             Color = new Vector4(1,1,1,0.498f),
@@ -122,6 +124,7 @@ public class PvPMKSMatchEventComponentNode: ResNode //this is a Base Component N
 
         _unkNineGridNode14 = new NineGridNode
         {
+            NodeId = 14,
             Position = new Vector2(44, 0),
             Size = new Vector2(256, 18),
             Color = new Vector4(1,1,1,0.247f),
@@ -136,30 +139,32 @@ public class PvPMKSMatchEventComponentNode: ResNode //this is a Base Component N
     {
         _unkImageNode25 = new ImageNode
         {
+            NodeId = 25,
             Size = new Vector2(40, 40),
             Origin = new Vector2(20, 20),
             AddColor = new Vector3(-0.251f, 0.251f, 0.502f),
             PartId = 0,
         };
         PvPIconNodeTextureHelper.LoadPvPmksGuageTexture(_unkImageNode25);
-        _unkImageNode22 = ConstructAndLoadArrowImageNode(new Vector2(230, 17), 0.098f);
-        _unkImageNode21 = ConstructAndLoadArrowImageNode(new Vector2(200, 17), 0.098f);
-        _unkImageNode20 = ConstructAndLoadArrowImageNode(new Vector2(170, 17), 0.146f);
-        _unkImageNode19 = ConstructAndLoadArrowImageNode(new Vector2(140, 17), 0.078f);
-        _unkImageNode18 = ConstructAndLoadArrowImageNode(new Vector2(110, 17), 0.133f);
-        _unkImageNode17 = ConstructAndLoadArrowImageNode(new Vector2(80, 17), 0.118f);
-        _unkImageNode16 = ConstructAndLoadArrowImageNode(new Vector2(50, 17), 0.039f);
-        _unkImageNode15 = ConstructAndLoadArrowImageNode(new Vector2(20, 17), 0.113f);
-        _unkImageNode12 = ConstructAndLoadCrossedSwordsImageNode();
-        _unkImageNode11 = ConstructAndLoadCrossedSwordsImageNode();
-        _unkImageNode10 = ConstructAndLoadCrossedSwordsImageNode();
-        _unkImageNode9 = ConstructAndLoadCrossedSwordsImageNode();
+        _unkImageNode22 = ConstructAndLoadArrowImageNode(new Vector2(230, 17), 0.098f, 22);
+        _unkImageNode21 = ConstructAndLoadArrowImageNode(new Vector2(200, 17), 0.098f, 21);
+        _unkImageNode20 = ConstructAndLoadArrowImageNode(new Vector2(170, 17), 0.146f, 20);
+        _unkImageNode19 = ConstructAndLoadArrowImageNode(new Vector2(140, 17), 0.078f, 19);
+        _unkImageNode18 = ConstructAndLoadArrowImageNode(new Vector2(110, 17), 0.133f, 18);
+        _unkImageNode17 = ConstructAndLoadArrowImageNode(new Vector2(80, 17), 0.118f, 17);
+        _unkImageNode16 = ConstructAndLoadArrowImageNode(new Vector2(50, 17), 0.039f, 16);
+        _unkImageNode15 = ConstructAndLoadArrowImageNode(new Vector2(20, 17), 0.113f, 15);
+        _unkImageNode12 = ConstructAndLoadCrossedSwordsImageNode(12);
+        _unkImageNode11 = ConstructAndLoadCrossedSwordsImageNode(11);
+        _unkImageNode10 = ConstructAndLoadCrossedSwordsImageNode(10);
+        _unkImageNode9 = ConstructAndLoadCrossedSwordsImageNode(9);
     }
 
-    private static unsafe ImageNode ConstructAndLoadCrossedSwordsImageNode()
+    private static unsafe ImageNode ConstructAndLoadCrossedSwordsImageNode(uint nodeId)
     {
         var image = new ImageNode
         {
+            NodeId = nodeId,
             Position = new Vector2(250,-8),
             Size = new Vector2(46,54),
             Origin = new Vector2(23,26),
@@ -178,10 +183,11 @@ public class PvPMKSMatchEventComponentNode: ResNode //this is a Base Component N
         return image;
     }
 
-    private static ImageNode ConstructAndLoadArrowImageNode(Vector2 position, float alpha)
+    private static ImageNode ConstructAndLoadArrowImageNode(Vector2 position, float alpha, uint nodeId)
     {
         var image = new ImageNode
         {
+            NodeId = nodeId,
             Position = position,
             NodeFlags = NodeFlags.AnchorTop | NodeFlags.AnchorLeft | NodeFlags.Enabled |
                         NodeFlags.EmitsEvents,
@@ -200,6 +206,7 @@ public class PvPMKSMatchEventComponentNode: ResNode //this is a Base Component N
     {
         _unkTextNode26 = new TextNode
         {
+            NodeId = 26,
             Position = new Vector2(48, 0),
             Size = new Vector2(340, 40),
             FontType = FontType.Axis,
@@ -211,6 +218,7 @@ public class PvPMKSMatchEventComponentNode: ResNode //this is a Base Component N
         };
         _unkTextNode8 = new TextNode
         {
+            NodeId = 8,
             Size = new Vector2(210,18),
             FontType = FontType.Axis,
             FontSize = 14,
@@ -222,6 +230,7 @@ public class PvPMKSMatchEventComponentNode: ResNode //this is a Base Component N
 
         _unkTextNode6 = new TextNode
         {
+            NodeId = 6,
             Position = new Vector2(30,19),
             Size = new Vector2(64,20),
             Scale = new Vector2(2,2),
@@ -235,6 +244,7 @@ public class PvPMKSMatchEventComponentNode: ResNode //this is a Base Component N
         };
         _unkTextNode5 = new TextNode
         {
+            NodeId = 5,
             Position = new Vector2(40,18),
             Size = new Vector2(64,20),
             Scale = new Vector2(1,1.17f),
@@ -250,6 +260,7 @@ public class PvPMKSMatchEventComponentNode: ResNode //this is a Base Component N
 
         _unkTextNode4 = new TextNode
         {
+            NodeId = 4,
             Position = new Vector2(-50, 20),
             Size = new Vector2(70,16),
             Origin = new Vector2(35,8),
@@ -272,34 +283,38 @@ public class PvPMKSMatchEventComponentNode: ResNode //this is a Base Component N
     {
         _unkResNode2 = new ResNode
         {
-         Position   = new Vector2(0,0),
-         Size = new Vector2(384,40),
-         NodeFlags = NodeFlags.AnchorTop | NodeFlags.AnchorLeft | NodeFlags.Visible | NodeFlags.Enabled |
-                     NodeFlags.EmitsEvents
+            NodeId = 2,
+            Position   = new Vector2(0,0),
+            Size = new Vector2(384,40),
+            NodeFlags = NodeFlags.AnchorTop | NodeFlags.AnchorLeft | NodeFlags.Visible | NodeFlags.Enabled |
+                        NodeFlags.EmitsEvents
         };
-        
+    
         _unkResNode3 = new ResNode
         {
+            NodeId = 3,
             Position   = new Vector2(0,0),
             Size = new Vector2(384,40),
             NodeFlags = NodeFlags.AnchorTop | NodeFlags.AnchorLeft | NodeFlags.Visible | NodeFlags.Enabled |
                         NodeFlags.EmitsEvents    
         };
-        
+    
         _unkResNode24 = new ResNode
         {
+            NodeId = 24,
             Size = new Vector2(40,40),
             Scale = new Vector2(2,2),
             NodeFlags = NodeFlags.AnchorTop | NodeFlags.AnchorLeft | NodeFlags.Enabled | NodeFlags.EmitsEvents,
             Origin = new Vector2(20,20)
         };
 
-        _unkBaseComponentNode23 = new PVPMKSInfoMatchEventIconNode(new Vector2(0,0));
-        _unkBaseComponentNode13 = new PVPMKSInfoMatchEventIconNode(new Vector2(200,0));
+        _unkBaseComponentNode23 = new PVPMKSInfoMatchEventIconNode(new Vector2(0,0), 23);
+        _unkBaseComponentNode13 = new PVPMKSInfoMatchEventIconNode(new Vector2(200,0), 13);
 
 
         _unkResNode7 = new ResNode
         {
+            NodeId = 7,
             Size = new Vector2(210,18),
             Color = new Vector4(1,1,1,0f),
             NodeFlags = NodeFlags.AnchorTop | NodeFlags.AnchorLeft | NodeFlags.Enabled | NodeFlags.EmitsEvents

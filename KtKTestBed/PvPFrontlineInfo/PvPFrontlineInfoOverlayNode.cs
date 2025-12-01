@@ -71,7 +71,7 @@ public sealed class PvPFrontlineInfoOverlayNode : OverlayNode, IDisposable
     public PvPFrontlineInfoOverlayNode()
     {
         var a = Service.PvPFrontlineInfoAdapter;
-        Service.AddonLifecycle.RegisterListener(AddonEvent.PostUpdate, "PvPFrontlineInfo", SetPositionScaleAndVisibility); //todo: deregister!!
+        Service.AddonLifecycle.RegisterListener(AddonEvent.PostUpdate, "PvPFrontlineInfo", SetPositionScaleAndVisibility); 
 
         Size = new Vector2(212, 56);
         NodeId = 1;
