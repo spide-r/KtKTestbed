@@ -16,15 +16,20 @@ public class PVPMKSBattleLog: OverlayNode, IDisposable
     private static string _pvpHudMove = "ui/uld/PVPHudMove.tex"; 
     private static string _contentGauge = "ui/uld/ContentGauge.tex"; 
 
+    //not sure what these are or what they do
     private ResNode _unkResNode13 = null!;
     private ResNode _unkResNode14 = null!;
     private ResNode _unkResNode15 = null!;
     
-    private ResNode _unkResNode2 = null!;
-    private TextNode _unkTextNode3 = null!;
-    private ResNode _unkResNode4 = null!;
+    /*
+     * 101 - Slide into view
+     * 4 - slide out of view and disappear
+     */
+    private ResNode _crystalUntetherResNode2 = null!;
+    private TextNode _crystalUntetherTextNode3 = null!;
+    private ResNode _crystalUntetherBgResNode4 = null!;
     private NineGridNode _unkNineGridNode6 = null!;
-    private ImageNode _unkImageNode5 = null!;
+    private ImageNode _notificationIconNode5 = null!;
     
     private NineGridNode _unkNineGridNode23 = null!;
     private NineGridNode _unkNineGridNode22 = null!;
@@ -49,22 +54,45 @@ public class PVPMKSBattleLog: OverlayNode, IDisposable
     //rn2 <- textnode, rn4 <- ninegrid, image
 
     private int _currentAnimationForNode = 0;
+    
+    /*
+     * 101 - dunno what the heck is happening. moves all logs to the top left corner away, shows em all, then hides em
+     * 102 - hides everything - default state i assume?
+     */
     public override void Update()
     {
-        
         var a = Service.PVPMKSBattleLogAdapter;
         if (_currentAnimationForNode != a.BAD_DESIGN_PATTERN)
         {
-            _pvPmksMatchEventComponentNode12.PlayAnimation(a.BAD_DESIGN_PATTERN);
+            _pvPmksMatchEventComponentNode7.PlayAnimation(a.BAD_DESIGN_PATTERN);
+           // ShowCrystalUntetherNotification();
+            //_unkResNode15.Timeline?.PlayAnimation(a.BAD_DESIGN_PATTERN);
+            //_crystalUntetherBgResNode4.Timeline?.PlayAnimation(a.BAD_DESIGN_PATTERN);
+
+            //_pvPmksMatchEventComponentNode12.PlayAnimation(a.BAD_DESIGN_PATTERN);
             _currentAnimationForNode = a.BAD_DESIGN_PATTERN;
         }
-        
+    }
 
+    public void ShowCrystalUntetherNotification()
+    {
+        _crystalUntetherResNode2.Timeline?.PlayAnimation(101);
+        _crystalUntetherBgResNode4.Timeline?.PlayAnimation(101);
+    }
+
+    public void ThrobRedCrystalUntetherNotification()
+    {
+        _crystalUntetherBgResNode4.Timeline?.PlayAnimation(102);
+    }
+    
+    public void HideCrystalUntetherNotification()
+    {
+        _crystalUntetherResNode2.Timeline?.PlayAnimation(4);
     }
 
     public PVPMKSBattleLog()
     {
-        Position = new Vector2(519, 619); //todo remove
+        Position = new Vector2(519, 419); //todo remove
         Size = new Vector2(384, 260);
         NodeId = 1;
         NodeFlags = NodeFlags.AnchorTop | NodeFlags.AnchorLeft | NodeFlags.Enabled | NodeFlags.Fill |
@@ -88,7 +116,7 @@ public class PVPMKSBattleLog: OverlayNode, IDisposable
         // attach nodes
     }
     
-    public new void Dispose()
+    public new void Dispose() //needed or else game explodes when unloading
     {
         base.Dispose();
         GC.SuppressFinalize(this);
@@ -113,16 +141,16 @@ public class PVPMKSBattleLog: OverlayNode, IDisposable
         _pvPmksMatchEventComponentNode9.AttachNode(this);
         _pvPmksMatchEventComponentNode8.AttachNode(this);
         _pvPmksMatchEventComponentNode7.AttachNode(this);
-        _unkResNode2.AttachNode(this);
-        _unkResNode4.AttachNode(_unkResNode2);
-        _unkTextNode3.AttachNode(_unkResNode2);
-        _unkImageNode5.AttachNode(_unkResNode4);
-        _unkNineGridNode6.AttachNode(_unkResNode4);
+        _crystalUntetherResNode2.AttachNode(this);
+        _crystalUntetherBgResNode4.AttachNode(_crystalUntetherResNode2);
+        _crystalUntetherTextNode3.AttachNode(_crystalUntetherResNode2);
+        _unkNineGridNode6.AttachNode(_crystalUntetherBgResNode4);
+        _notificationIconNode5.AttachNode(_crystalUntetherBgResNode4);
     }
 
     private void ConstructTextNodes()
     {
-        _unkTextNode3 = new TextNode
+        _crystalUntetherTextNode3 = new TextNode
         {
             NodeId = 3,
             Position = new Vector2(31,0),
@@ -136,7 +164,7 @@ public class PVPMKSBattleLog: OverlayNode, IDisposable
             TextFlags = TextFlags.Edge | TextFlags.Ellipsis,
             NodeFlags = NodeFlags.AnchorTop | NodeFlags.AnchorLeft | NodeFlags.Visible | NodeFlags.Enabled |
                         NodeFlags.EmitsEvents,
-            String = "unkTextNode3"
+            String = "Crystal Untether Notice"
         };
     }
 
@@ -292,7 +320,7 @@ public class PVPMKSBattleLog: OverlayNode, IDisposable
 
     private void ConstructImageNodes()
     {
-        _unkImageNode5 = new SimpleImageNode
+        _notificationIconNode5 = new SimpleImageNode
         {
             NodeId = 5,
             Position = new Vector2(4,2),
@@ -316,6 +344,7 @@ public class PVPMKSBattleLog: OverlayNode, IDisposable
         };
         _unkResNode14 = new ResNode
         {
+            IsVisible = true,
             NodeId = 14,
             Position = new Vector2(0,0),
             Size = new Vector2(404, 270),
@@ -330,7 +359,7 @@ public class PVPMKSBattleLog: OverlayNode, IDisposable
             NodeFlags = NodeFlags.AnchorTop | NodeFlags.AnchorLeft | NodeFlags.Visible | NodeFlags.Enabled | NodeFlags.EmitsEvents,
         };
 
-        _unkResNode2 = new ResNode
+        _crystalUntetherResNode2 = new ResNode
         {
             NodeId = 2,
             Position = new Vector2(0,20),
@@ -338,7 +367,7 @@ public class PVPMKSBattleLog: OverlayNode, IDisposable
             NodeFlags = NodeFlags.AnchorTop | NodeFlags.AnchorLeft | NodeFlags.Visible | NodeFlags.Enabled | NodeFlags.EmitsEvents,
 
         };
-        _unkResNode4 = new ResNode
+        _crystalUntetherBgResNode4 = new ResNode
         {
             NodeId = 4,
             Size = new Vector2(384,32),
@@ -377,7 +406,7 @@ public class PVPMKSBattleLog: OverlayNode, IDisposable
 
     private void ConstructTimelinesForTextNodes()
     {
-        _unkTextNode3.AddTimeline(new TimelineBuilder()
+        _crystalUntetherTextNode3.AddTimeline(new TimelineBuilder()
                 .BeginFrameSet(1, 10)
                 .AddFrame(1, position: new Vector2(0,0))
                 .AddFrame(10, position: new Vector2(32,0))
@@ -403,7 +432,7 @@ public class PVPMKSBattleLog: OverlayNode, IDisposable
 
     private void ConstructTimelinesForImageNodes()
     {
-        _unkImageNode5.AddTimeline(new TimelineBuilder()
+        _notificationIconNode5.AddTimeline(new TimelineBuilder()
                 .BeginFrameSet(1, 10)
                 .AddFrame(1, addColor: new Vector3(0, 0, 0), multiplyColor: new Vector3(100, 100, 100))
                 .EndFrameSet()
@@ -462,7 +491,7 @@ public class PVPMKSBattleLog: OverlayNode, IDisposable
                 .AddFrame(34, alpha: 255)
                 .EndFrameSet()
                 .Build());
-        _unkResNode2.AddTimeline(new TimelineBuilder()
+        _crystalUntetherResNode2.AddTimeline(new TimelineBuilder()
                 .BeginFrameSet(1, 90)
                 .AddLabel(1, 101, AtkTimelineJumpBehavior.Start, 0)
                 .AddLabel(11, 102, AtkTimelineJumpBehavior.Start, 0)
@@ -471,7 +500,7 @@ public class PVPMKSBattleLog: OverlayNode, IDisposable
                 .AddLabel(81, 17, AtkTimelineJumpBehavior.PlayOnce, 0)
                 .EndFrameSet()
                 .Build());
-        _unkResNode4.AddTimeline(new TimelineBuilder()
+        _crystalUntetherBgResNode4.AddTimeline(new TimelineBuilder()
                 .BeginFrameSet(1, 70)
                 .AddLabel(1, 101, AtkTimelineJumpBehavior.Start, 0)
                 .AddLabel(10, 0, AtkTimelineJumpBehavior.PlayOnce, 0)

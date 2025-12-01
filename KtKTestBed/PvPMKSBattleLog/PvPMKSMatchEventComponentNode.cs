@@ -6,11 +6,28 @@ using KamiToolKit.Nodes;
 
 namespace KtKTestBed.PvPMKSBattleLog;
 
+//todo: node animation colors may because haseldebug exports in 0-256 instead of 0-1
+
+//todo DISPOSE EVERYTHING AAAHHH
+/*
+ * These animations are very odd and you will probably need a coordinator class to animate the exact things you need (or a bunch of functions)
+ * It appears to me that these individual match events display the information once and then "pass it on" to the node above it.
+ * This will requiure a lot of experimentation and maybe an array of animations to be testing
+ */
 public class PvPMKSMatchEventComponentNode: ResNode //this is a Base Component Node in ai2 but the node type is atkresnode
 {
     // attached:
     // Resnode <- Resnode <- (22 nodes of crap)
     private ResNode _unkResNode2 = null!;
+    
+    /*
+     * 17 - invisible, default state?
+     * 101 - team kill, slides into place
+     * 102 - team kill, just appears
+     * 103 - map event, slides into place
+     * 104 - map event, just appears
+     * 105 - map event, just appears, leads into 104
+     */
     private ResNode _unkResNode3 = null!;
     
     
@@ -42,20 +59,28 @@ public class PvPMKSMatchEventComponentNode: ResNode //this is a Base Component N
     private ResNode _unkResNode7 = null!;
     
     private TextNode _unkTextNode8 = null!;
-    private TextNode _unkTextNode6 = null!;
+    private TextNode killCounterTextNode6 = null!;
     private TextNode _unkTextNode5 = null!;
     private TextNode _unkTextNode4 = null!;
-
+    
     public void PlayAnimation(int anim)
     {
-        Service.PluginLog.Debug(anim.ToString());
+        //Service.PluginLog.Debug(anim.ToString());
+        _unkResNode3.Timeline?.PlayAnimation(101);
+        //popIntoView();
         Timeline?.PlayAnimation(anim);
-        _unkResNode2.Timeline?.PlayAnimation(anim);
-        _unkResNode3.Timeline?.PlayAnimation(anim);
+        //_unkResNode2.Timeline?.PlayAnimation(anim);
+        /*_unkResNode3.Timeline?.PlayAnimation(anim);
         _unkResNode7.Timeline?.PlayAnimation(anim);
         _unkResNode24.Timeline?.PlayAnimation(anim);
         _unkBaseComponentNode13.Timeline?.PlayAnimation(anim);
-        _unkBaseComponentNode23.Timeline?.PlayAnimation(anim);
+        _unkBaseComponentNode23.Timeline?.PlayAnimation(anim);*/
+    }
+
+    public void popIntoView()
+    {
+        Timeline?.PlayAnimation(103);
+        Timeline?.PlayAnimation(4);
     }
     public PvPMKSMatchEventComponentNode(Vector2 position, uint id)
     {
@@ -85,7 +110,7 @@ public class PvPMKSMatchEventComponentNode: ResNode //this is a Base Component N
         
         _unkTextNode4.AttachNode(_unkResNode3);
         _unkTextNode5.AttachNode(_unkResNode3);
-        _unkTextNode6.AttachNode(_unkResNode3);
+        killCounterTextNode6.AttachNode(_unkResNode3);
         _unkResNode7.AttachNode(_unkResNode3);
         _unkTextNode8.AttachNode(_unkResNode7);
         _unkImageNode9.AttachNode(_unkResNode3);
@@ -137,15 +162,18 @@ public class PvPMKSMatchEventComponentNode: ResNode //this is a Base Component N
 
     private void ConstructImageNodes()
     {
-        _unkImageNode25 = new ImageNode
+        _unkImageNode25 = new SimpleImageNode
         {
             NodeId = 25,
             Size = new Vector2(40, 40),
             Origin = new Vector2(20, 20),
             AddColor = new Vector3(-0.251f, 0.251f, 0.502f),
             PartId = 0,
+            TextureCoordinates = new Vector2(0, 212),
+            TextureSize = new Vector2(40,40),
+            TexturePath = "ui/uld/PvPMKSGauge.tex"
         };
-        PvPIconNodeTextureHelper.LoadPvPmksGuageTexture(_unkImageNode25);
+        //PvPIconNodeTextureHelper.LoadPvPmksGuageTexture(_unkImageNode25);
         _unkImageNode22 = ConstructAndLoadArrowImageNode(new Vector2(230, 17), 0.098f, 22);
         _unkImageNode21 = ConstructAndLoadArrowImageNode(new Vector2(200, 17), 0.098f, 21);
         _unkImageNode20 = ConstructAndLoadArrowImageNode(new Vector2(170, 17), 0.146f, 20);
@@ -228,7 +256,7 @@ public class PvPMKSMatchEventComponentNode: ResNode //this is a Base Component N
             String = "unkTextNode8"
         };
 
-        _unkTextNode6 = new TextNode
+        killCounterTextNode6 = new TextNode
         {
             NodeId = 6,
             Position = new Vector2(30,19),
@@ -240,7 +268,8 @@ public class PvPMKSMatchEventComponentNode: ResNode //this is a Base Component N
             FontSize = 24,
             TextOutlineColor = new Vector4(0.902f, 0.655f, 0.227f, 1.000f),
             TextFlags = TextFlags.Edge | TextFlags.Glare,
-            String = "unkTextNode6"
+            String = "7",
+            NodeFlags = NodeFlags.AnchorTop | NodeFlags.AnchorLeft | NodeFlags.Enabled | NodeFlags.EmitsEvents
         };
         _unkTextNode5 = new TextNode
         {
@@ -269,7 +298,8 @@ public class PvPMKSMatchEventComponentNode: ResNode //this is a Base Component N
             FontType = FontType.MiedingerMed,
             FontSize = 18,
             TextOutlineColor = new Vector4(0.616f, 0.514f, 0.357f, 1.000f),
-            TextFlags = TextFlags.Edge //todo unk15
+            TextFlags = TextFlags.Edge, //todo unk15
+            //IsVisible = true 
         };
     }
 
@@ -467,7 +497,7 @@ public class PvPMKSMatchEventComponentNode: ResNode //this is a Base Component N
                 .AddFrame(11, textOutlineColor: new Vector3(204, 55, 55))
                 .EndFrameSet()
                 .Build());
-        _unkTextNode6.AddTimeline(new TimelineBuilder()
+        killCounterTextNode6.AddTimeline(new TimelineBuilder()
                 .BeginFrameSet(10, 25)
                 .AddFrame(10, position: new Vector2(30,19))
                 .AddFrame(13, position: new Vector2(40,19))
